@@ -1,4 +1,7 @@
 import React from 'react'
+import { AiFillLike } from "react-icons/ai";
+import { FaShare } from "react-icons/fa";
+import { BsSave2 } from "react-icons/bs";
 
 interface CardProps {
   card: {
@@ -21,7 +24,7 @@ export default function CardUi({card}:CardProps) {
         src="https://cdn-cjhkj.nitrocdn.com/krXSsXVqwzhduXLVuGLToUwHLNnSxUxO/assets/images/optimized/rev-b135bb1/spotme.com/wp-content/uploads/2020/07/Hero-1.jpg" 
         alt="Card Image" 
       />
-      <div className="px-6 py-4">
+      <div className="px-6 pt-4">
         <div className="flex p-2 justify-between ">
         <div className="font-mono  text-xl mb-2">{card.title}</div>
 
@@ -30,15 +33,20 @@ export default function CardUi({card}:CardProps) {
         <p className="text-gray-700 text-base">
           {card.description}
         </p>
-        <div className="flex p-2 justify-between ">
+        <div className="flex px-2 py-3 justify-between ">
         <div className="font-mono  text-xl mb-2">{card.Venue}</div>
 
             <div className="font-mono text-xl mb-2">{card.time}</div>
         </div>
       </div>
-      <div className="px-6 pt-4 pb-2">
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
-          Action Button
+      <div className="flex justify-between items-center p-2">
+        <div className="px-2 flex  gap-4">
+      <AiFillLike color='red' />
+      <FaShare color='red'/>
+      <BsSave2 color='red'/>
+      </div>
+            <button className="bg-red-500 border-2 border-red-500 text-white py-2 px-4 rounded hover:bg-white hover:text-red-500 ">
+          Book Now
         </button>
       </div>
     </div>
