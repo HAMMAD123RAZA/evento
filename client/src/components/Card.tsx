@@ -3,6 +3,7 @@ import CardUi from './CardUi';
 
 const cardData=[
   {
+    id:1,
   title:'Concert',
   Venue:'New York',
   description:'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
@@ -12,6 +13,7 @@ const cardData=[
 
 },
 {
+  id:2,
   title:'Concert',
   Venue:'New York',
   description:'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
@@ -22,6 +24,7 @@ const cardData=[
 }
 ,
 {
+  id:3,
   title:'Concert',
   Venue:'New York',
   description:'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
@@ -31,6 +34,7 @@ const cardData=[
 
 }
 ,  {
+  id:4,
   title:'Concert',
   Venue:'New York',
   description:'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
