@@ -22,7 +22,7 @@ app.get('/',(req,res)=>{
 
 app.post('/admin/add',createData)
 
-app.get('/admin/get',getData)
+app.get('/get',getData)
 
 app.get('/admin/get/:id',getSignleData)
 

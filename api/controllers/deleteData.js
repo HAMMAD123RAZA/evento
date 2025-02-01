@@ -10,7 +10,7 @@ export  const deleteSingleData=async (req,res)=>{
 
     try {
         const deleted=await sql`DELETE FROM events WHERE id=${id} RETURNING *`
-        res.status(201).json(deleted)
+        res.status(201).json('deleted item')
     } catch (error) {
         console.error(error)
         res.status(500).json('internal server err')

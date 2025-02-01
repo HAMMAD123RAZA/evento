@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardUi from './CardUi';
-
+import axios from 'axios'
 const cardData=[
   {
     id:1,
@@ -48,10 +48,26 @@ const cardData=[
 
 
 const Card = () => {
+  const [data,setData]=useState([])
+  const getData=async()=>{
+    try {
+      const apiData=await axios.get('http://localhost:8080/get')
+      setData(apiData.data)
+      console.log(apiData.data)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    getData()
+  },[])
+
   return (
 <>
 <div className="grid grid-cols-1 md:grid-cols-3 ">
-{cardData.map((card,id)=>{
+{data.map((card,id)=>{
   return (
     <>
     <CardUi card={card} key={id} id={id} />
