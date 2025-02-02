@@ -1,9 +1,10 @@
 import React from 'react'
+import Sidebar from './Sidebar'
 
 const AdminHome = () => {
   return (
     <>
-This is admin
+<Sidebar/>
     </>
   )
 }
