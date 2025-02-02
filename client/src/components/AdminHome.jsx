@@ -3,7 +3,7 @@ import React from 'react'
 const AdminHome = () => {
   return (
     <>
-This is admin
+     that is an admin 
     </>
   )
 }

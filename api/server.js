@@ -24,7 +24,7 @@ app.post('/admin/add',createData)
 
 app.get('/get',getData)
 
-app.get('/admin/get/:id',getSignleData)
+app.get('/get/:id',getSignleData)
 
 
 app.put('/admin/update/:id',updateData)

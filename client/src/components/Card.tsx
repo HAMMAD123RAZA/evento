@@ -53,7 +53,7 @@ const Card = () => {
     try {
       const apiData=await axios.get('http://localhost:8080/get')
       setData(apiData.data)
-      console.log(apiData.data)
+      // console.log(apiData.data)
 
     } catch (error) {
       console.log(error)
@@ -70,7 +70,7 @@ const Card = () => {
 {data.map((card,id)=>{
   return (
     <>
-    <CardUi card={card} key={id} id={id} />
+    <CardUi card={card} key={id} id={card.id} />
     </>
   )
 })}
