@@ -22,7 +22,7 @@ const menuItems = [
   }
 ];
 
-const Sidebar = () => {
+const AdWrapper = ({children}) => {
   return (
     <div className="flex">
       <div className="flex flex-col bg-gray-300 h-screen w-64 p-2">
@@ -35,8 +35,9 @@ const Sidebar = () => {
           </div>
         ))}
       </div>
+      {children}
     </div>
   );
 };
 
-export default Sidebar;
+export default AdWrapper;
