@@ -20,7 +20,7 @@ app.get('/',(req,res)=>{
     res.send("Hello World");
 })
 
-app.post('/admin/add',createData)
+app.post('/admin/event/add',createData)
 
 app.get('/get',getData)
 

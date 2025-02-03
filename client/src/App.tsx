@@ -17,7 +17,7 @@ const App = () => {
         <Route path='/' element={<Home/>}/>  
         <Route path='/card/:id' element={<DetailPage  />}/>
         <Route path="/saved" element={<SavedItems />} />
-        <Route path='/admin/home' element={<AdminHome/>}/>
+        <Route path='/admin' element={<AdminHome/>}/>
         <Route path='/admin/event/create' element={<EventCreate/>}/>
 
       </Routes>
