@@ -5,7 +5,7 @@ const SavedItems = () => {
   const savedItems = useSelector((state) => state.savedCards.savedItems);
 
   console.log('Saved Items:', savedItems); // Debugging: Log saved items
-
+  
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Saved Items</h1>

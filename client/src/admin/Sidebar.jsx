@@ -17,7 +17,7 @@ const menuItems = [
   {
     name: "events",
     active: false,
-    link: "/events",
+    link: "/admin/event/list",
     icons: 'https://thumbs.dreamstime.com/b/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-vector-illustration-171286982.jpg'
   }
 ];

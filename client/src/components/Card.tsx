@@ -46,15 +46,12 @@ const cardData=[
 
 ]
 
-
 const Card = () => {
   const [data,setData]=useState([])
   const getData=async()=>{
     try {
       const apiData=await axios.get('http://localhost:8080/get')
       setData(apiData.data)
-      // console.log(apiData.data)
-
     } catch (error) {
       console.log(error)
     }

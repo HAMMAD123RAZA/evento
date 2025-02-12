@@ -1,12 +1,9 @@
 import React from 'react';
 import AdWrapper from './AdWrapper';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const AdminHome = () => {
-  const navigate=useNavigate()
-  const handleLink=()=>{
-    navigate('/admin/event/create')
-  }
+  // const navigate=useNavigate()
   return (
     <>
       <AdWrapper>
@@ -37,9 +34,9 @@ const AdminHome = () => {
           <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <button onClick={()=>{handleLink()}} className="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
+              <Link to="/admin/event/create" className="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
                 Create New Event
-              </button>
+              </Link>
               <button className="bg-green-500 text-white p-4 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
                 Manage Users
               </button>
