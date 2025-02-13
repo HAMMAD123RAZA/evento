@@ -26,7 +26,6 @@ app.get('/get',getData)
 
 app.get('/get/:id',getSignleData)
 
-
 app.put('/admin/update/:id',updateData)
 
 app.delete('/admin/delete/:id',deleteSingleData)

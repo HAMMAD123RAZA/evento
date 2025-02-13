@@ -23,7 +23,7 @@ export default function EventList() {
         { key: 'venue', label: 'Venue' },
         { key: 'date', label: 'Date' },
         { key: 'time', label: 'Time' },
-        { key: 'description', label: 'Description' }
+        { key: 'description', label: 'Description' },
     ];
 
     return (
@@ -40,7 +40,14 @@ export default function EventList() {
                     <tbody>
                         {data.map((item, index) => (
                             <tr key={index}>
-                                <td className='px-3'>{item.title}</td>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        key={`checkbox-${index}`}
+                                        style={{ visibility: 'visible', opacity: 1, marginRight: '8px' }}
+                                    />
+                                    {item.title}
+                                </td>
                                 <td className='px-3'>{item.venue}</td>
                                 <td className='px-3'>{item.date}</td>
                                 <td className='px-3'>{item.time}</td>
