@@ -22,10 +22,10 @@ const menuItems = [
   }
 ];
 
-const AdWrapper = ({children}) => {
+const AdWrapper = ({ children }) => {
   return (
-    <div className="flex">
-      <div className="flex flex-col bg-gray-300 h-screen w-64 p-2">
+    <div className="flex h-screen">
+      <div className="flex flex-col bg-gray-300 w-64 p-2">
         {menuItems.map((item, id) => (
           <div key={id} className='flex items-center gap-3 hover:bg-gray-100 transition-all duration-300 p-2 rounded'>
             <img src={item.icons} className='w-8 h-8 object-cover rounded-full' alt={item.name} />
@@ -35,7 +35,9 @@ const AdWrapper = ({children}) => {
           </div>
         ))}
       </div>
-      {children}
+      <div className="flex-1 p-4">
+        {children}
+      </div>
     </div>
   );
 };
