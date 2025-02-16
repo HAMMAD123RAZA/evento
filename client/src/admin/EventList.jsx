@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react';
 import AdWrapper from './AdWrapper';
 import axios from 'axios';
 import { FaTrash } from 'react-icons/fa'; // Add the trash icon for delete functionality
+import { useNavigate } from 'react-router';
 
 export default function EventList() {
     const [data, setData] = useState([]);
     const [selectedItems, setSelectedItems] = useState(new Set());
+    const navigate=useNavigate()
 
     const fetchData = async () => {
         try {
-            const apiData = await axios.get('http://localhost:8080/get');
+            const apiData = await axios.get('http://localhost:8080/get',{
+                headers:{
+                    Authorization:'Bearer'
+                }
+            });
             setData(apiData.data);
         } catch (error) {
             console.log(error);
@@ -22,7 +28,7 @@ export default function EventList() {
 
     const head = [
         { key: 'title', label: 'Title' },
-        { key: 'venue', label: 'Venue' },
+        { key: 'venue', label: 'venue' },
         { key: 'date', label: 'Date' },
         { key: 'time', label: 'Time' },
         { key: 'description', label: 'Description' },
@@ -42,12 +48,16 @@ export default function EventList() {
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:8080/admin/delete/${id}`);
-            // After successful deletion, fetch the updated data
             fetchData();
         } catch (error) {
             console.log('uff something went wrong:', error);
         }
     };
+
+    const handleEdit=(item)=>{
+        navigate('/admin/event/create',{state:{event:item}})
+    }
+
 
     return (
         <>
@@ -88,7 +98,9 @@ export default function EventList() {
                                     >
                                         Delete
                                     </button>
-                                    <button className='font-bold py-3 px-5 my-3 text-white bg-gray-500 hover:bg-white hover:text-gray-500 rounded-lg border-2 border-gray-500'>
+                                    <button 
+                                    onClick={()=>handleEdit(item)}
+                                    className='font-bold py-3 px-5 my-3 text-white bg-gray-500 hover:bg-white hover:text-gray-500 rounded-lg border-2 border-gray-500'>
                                         Edit
                                     </button>
                                 </td>

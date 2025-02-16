@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdWrapper from './AdWrapper';
 import axios from 'axios';
 
 const EventCreate = () => {
   const [data, setData] = useState({
     title: '',
-    Venue: '',
+    venue: '',
     date: '',
     time: '',
-    Description: '',
+    description: '',
     imgurl: ''
   });
+
+  useEffect(()=>{
+    if (location.state && state.location.event) {
+      setData(location.state.event)
+    }
+  },[location])
+
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
-      const api = await axios.post('http://localhost:8080/admin/event/add', data);
-      console.log(api.data);
-      alert('Event submitted successfully!');
-      setData({
-        title: '',
-        Venue: '',
-        date: '',
-        time: '',
-        Description: '',
-        imgurl: ''
-      });
+
+      if (data.id) {
+        await axios.put(`http://localhost:8080/admin/update/${data.id}`, data);
+        alert('Event updated successfully!');
+
+      }
+
+      else{
+        const api = await axios.post('http://localhost:8080/admin/event/add', data);
+        console.log(api.data);
+        alert('Event submitted successfully!');
+        setData({
+          title: '',
+          venue: '',
+          date: '',
+          time: '',
+          description: '',
+          imgurl: ''
+        });
+      }
+
+      navigate('/admin/event/list');
+
     } catch (error) {
       console.log(error);
       alert('Failed to submit event. Please try again.');
@@ -39,7 +59,7 @@ const EventCreate = () => {
   return (
     <AdWrapper>
       <section className='p-6 bg-white w-full rounded-lg h-screen shadow-md'>
-        <h1 className='text-3xl font-bold'>Create Event</h1>
+        <h1 className='text-3xl font-bold'>{data.id?'Edit Event':'Create Event'}</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <label className='font-semibold' htmlFor="title">Title</label> <br />
@@ -54,14 +74,14 @@ const EventCreate = () => {
             />
           </div>
           <div>
-            <label className='font-semibold' htmlFor="Venue">Venue</label> <br />
+            <label className='font-semibold' htmlFor="venue">venue</label> <br />
             <input
               required
               onChange={handleChange}
-              value={data.Venue}
+              value={data.venue}
               type="text"
-              name="Venue"
-              placeholder='Venue'
+              name="venue"
+              placeholder='venue'
               className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
@@ -90,14 +110,14 @@ const EventCreate = () => {
             />
           </div>
           <div>
-            <label className='font-semibold' htmlFor="Description">Description</label> <br />
+            <label className='font-semibold' htmlFor="description">description</label> <br />
             <input
               required
               onChange={handleChange}
-              value={data.Description}
+              value={data.description}
               type="text"
-              name="Description"
-              placeholder='Description'
+              name="description"
+              placeholder='description'
               className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
@@ -117,7 +137,7 @@ const EventCreate = () => {
             type="submit"
             className='font-bold py-3 px-5 my-3 text-white bg-red-500 hover:bg-white hover:text-red-500 rounded-lg border-2 border-red-500'
           >
-            Create
+            {data.id?'Update':'Create'}
           </button>
         </form>
       </section>
