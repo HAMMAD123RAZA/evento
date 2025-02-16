@@ -26,6 +26,7 @@ export default function EventList() {
         { key: 'date', label: 'Date' },
         { key: 'time', label: 'Time' },
         { key: 'description', label: 'Description' },
+        { key: 'Action', label: 'Action' }
     ];
 
     const handleCheckboxChange = (event, index) => {
@@ -38,29 +39,19 @@ export default function EventList() {
         setSelectedItems(updatedSelectedItems);
     };
 
-    const handleDelete = () => {
-        // Delete logic here, like sending a request to your backend to delete the selected items
-        const updatedData = data.filter((_, index) => !selectedItems.has(index));
-        setData(updatedData);
-        setSelectedItems(new Set()); // Clear selected checkboxes after delete
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8080/admin/delete/${id}`);
+            // After successful deletion, fetch the updated data
+            fetchData();
+        } catch (error) {
+            console.log('uff something went wrong:', error);
+        }
     };
 
     return (
         <>
             <AdWrapper>
-                <div className="relative mb-4">
-                    {/* Delete icon is visible only when there are selected items */}
-                    {selectedItems.size > 0 && (
-                        <button
-                            onClick={handleDelete}
-                            className="absolute top-0 right-0 text-red-500 hover:text-red-700 flex items-center"
-                        >
-                            <FaTrash className="mr-2" />
-                            Delete
-                        </button>
-                    )}
-                </div>
-
                 <table className="w-full">
                     <thead>
                         <tr className="uppercase">
@@ -90,6 +81,17 @@ export default function EventList() {
                                 <td className="px-3">{item.date}</td>
                                 <td className="px-3">{item.time}</td>
                                 <td className="px-3">{item.description}</td>
+                                <td className="px-3 flex gap-3">
+                                    <button
+                                        onClick={() => handleDelete(item.id)}
+                                        className='font-bold py-3 px-5 my-3 text-white bg-red-500 hover:bg-white hover:text-red-500 rounded-lg border-2 border-red-500'
+                                    >
+                                        Delete
+                                    </button>
+                                    <button className='font-bold py-3 px-5 my-3 text-white bg-gray-500 hover:bg-white hover:text-gray-500 rounded-lg border-2 border-gray-500'>
+                                        Edit
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
