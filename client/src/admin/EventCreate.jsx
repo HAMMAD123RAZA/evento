@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AdWrapper from './AdWrapper';
 import axios from 'axios';
 
 const EventCreate = () => {
+  const location = useLocation(); // Access the location object
+  const navigate = useNavigate(); 
   const [data, setData] = useState({
     title: '',
     venue: '',
@@ -12,31 +15,26 @@ const EventCreate = () => {
     imgurl: ''
   });
 
-  useEffect(()=>{
-    if (location.state && state.location.event) {
-      setData(location.state.event)
+  useEffect(() => {
+    if (location.state && location.state.event) {
+      setData(location.state.event);
     }
-  },[location])
-
+  }, [location]); 
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
-
       if (data.id) {
+        // Update existing event
         await axios.put(`http://localhost:8080/admin/update/${data.id}`, data);
         alert('Event updated successfully!');
-
-      }
-
-      else{
-        const api = await axios.post('http://localhost:8080/admin/event/add', data);
-        console.log(api.data);
+      } else {
+        // Create new event
+        await axios.post('http://localhost:8080/admin/event/add', data);
         alert('Event submitted successfully!');
         setData({
           title: '',
@@ -47,9 +45,7 @@ const EventCreate = () => {
           imgurl: ''
         });
       }
-
-      navigate('/admin/event/list');
-
+      navigate('/admin/event/list'); 
     } catch (error) {
       console.log(error);
       alert('Failed to submit event. Please try again.');
@@ -59,7 +55,7 @@ const EventCreate = () => {
   return (
     <AdWrapper>
       <section className='p-6 bg-white w-full rounded-lg h-screen shadow-md'>
-        <h1 className='text-3xl font-bold'>{data.id?'Edit Event':'Create Event'}</h1>
+        <h1 className='text-3xl font-bold'>{data.id ? 'Edit Event' : 'Create Event'}</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <label className='font-semibold' htmlFor="title">Title</label> <br />
@@ -74,14 +70,14 @@ const EventCreate = () => {
             />
           </div>
           <div>
-            <label className='font-semibold' htmlFor="venue">venue</label> <br />
+            <label className='font-semibold' htmlFor="venue">Venue</label> <br />
             <input
               required
               onChange={handleChange}
               value={data.venue}
               type="text"
               name="venue"
-              placeholder='venue'
+              placeholder='Venue'
               className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
@@ -110,14 +106,14 @@ const EventCreate = () => {
             />
           </div>
           <div>
-            <label className='font-semibold' htmlFor="description">description</label> <br />
+            <label className='font-semibold' htmlFor="description">Description</label> <br />
             <input
               required
               onChange={handleChange}
               value={data.description}
               type="text"
               name="description"
-              placeholder='description'
+              placeholder='Description'
               className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
@@ -137,7 +133,7 @@ const EventCreate = () => {
             type="submit"
             className='font-bold py-3 px-5 my-3 text-white bg-red-500 hover:bg-white hover:text-red-500 rounded-lg border-2 border-red-500'
           >
-            {data.id?'Update':'Create'}
+            {data.id ? 'Update' : 'Create'}
           </button>
         </form>
       </section>

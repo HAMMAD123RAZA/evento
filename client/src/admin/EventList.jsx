@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdWrapper from './AdWrapper';
 import axios from 'axios';
 import { FaTrash } from 'react-icons/fa'; // Add the trash icon for delete functionality
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export default function EventList() {
     const [data, setData] = useState([]);
@@ -11,11 +11,7 @@ export default function EventList() {
 
     const fetchData = async () => {
         try {
-            const apiData = await axios.get('http://localhost:8080/get',{
-                headers:{
-                    Authorization:'Bearer'
-                }
-            });
+            const apiData = await axios.get('http://localhost:8080/get');
             setData(apiData.data);
         } catch (error) {
             console.log(error);
@@ -58,7 +54,6 @@ export default function EventList() {
         navigate('/admin/event/create',{state:{event:item}})
     }
 
-
     return (
         <>
             <AdWrapper>
@@ -74,17 +69,7 @@ export default function EventList() {
                         {data.map((item, index) => (
                             <tr key={index}>
                                 <td>
-                                    <input
-                                        type="checkbox"
-                                        onChange={(e) => handleCheckboxChange(e, index)}
-                                        checked={selectedItems.has(index)}
-                                        style={{
-                                            visibility: 'visible',
-                                            padding: '12px',
-                                            opacity: 1,
-                                            marginRight: '8px',
-                                        }}
-                                    />
+                               
                                     {item.title}
                                 </td>
                                 <td className="px-3">{item.venue}</td>

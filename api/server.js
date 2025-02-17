@@ -6,6 +6,7 @@ import { getData, getSignleData } from './controllers/getdata.js';
 import { updateData } from './controllers/updateData.js';
 
 import { deleteSingleData, deleteAllData } from './controllers/deleteData.js';
+import { Login, Register } from './controllers/auth.js';
 const app = express();
 app.use(cors());
 app.use(express.json()); 
@@ -31,3 +32,6 @@ app.put('/admin/update/:id',updateData)
 app.delete('/admin/delete/:id',deleteSingleData)
 
 app.delete('/admin/delete/',deleteAllData)
+
+app.post('/admin/register', Register)
+app.post('/admin/login', Login)
