@@ -1,31 +1,34 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const SavedItems = () => {
-  const savedItems = useSelector((state) => state.savedCards.savedItems);
+function SavedItems() {
+    const [savedCards, setsavedCards] = useState<any[]>([])
 
-  console.log('Saved Items:', savedItems); // Debugging: Log saved items
-  
-  return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Saved Items</h1>
-      <div className="flex flex-wrap gap-4">
-        {savedItems.map((card, id) => (
-          <div key={id} className="max-w-xs rounded overflow-hidden shadow-lg bg-white">
-            <img
-              className="w-full h-40 object-cover rounded-t-lg"
-              src={card.image}
-              alt="Card Image"
-            />
-            <div className="px-6 pt-4">
-              <div className="font-mono text-xl mb-2">{card.title}</div>
-              <p className="text-gray-700 text-base">{card.description}</p>
+    useEffect(()=>{
+        const storeCards=JSON.parse(localStorage.getItem("savedCards") || "[]")
+        setsavedCards(storeCards)
+    },[])
+    console.log('the saved items are :',savedCards)
+    return (
+    <>
+       <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">Saved Cards</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {savedCards.map((card) => (
+          <div key={card.id} className="max-w-xs rounded overflow-hidden shadow-lg bg-white">
+            <Link to={`/card/${card.id}`}>
+              <img className="w-full h-40 object-cover rounded-t-lg" src={card.imgurl} alt="Card" />
+            </Link>
+            <div className="p-4">
+              <h3 className="font-mono text-xl mb-2">{card.title}</h3>
+              <p className="text-gray-700 text-sm">{card.description}</p>
             </div>
           </div>
         ))}
       </div>
     </div>
-  );
-};
+    </>
+  )
+}
 
-export default SavedItems;
+export default SavedItems

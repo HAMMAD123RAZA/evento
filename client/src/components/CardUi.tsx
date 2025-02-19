@@ -3,7 +3,6 @@ import { AiFillLike } from 'react-icons/ai';
 import { FaShare } from 'react-icons/fa';
 import { BsSave2 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 // import { addToSaved } from '../rtk/SavedCardsSlice'; // Import the action
 
 interface CardProps {
@@ -19,12 +18,17 @@ interface CardProps {
   id: number;
 }
 
-export default function CardUi({ card, id }: CardProps) {
-  const dispatch = useDispatch();
+const handleSave = (card:any) => {
+  const savedCards=JSON.parse(localStorage.getItem('savedCards') || '[]');
+  if(!savedCards.find((items:any)=>items.id===card.id)){
+    savedCards.push(card)
+    localStorage.setItem("savedCards",JSON.stringify(savedCards))
+    alert("Card Saved")
+  }
+  console.log('the saved card is:',card)
+};
 
-  const handleSave = () => {
-    dispatch(addToSaved(card)); 
-  };
+export default function CardUi({ card, id }: CardProps) {
 
   return (
     <div className="max-w-xs rounded overflow-hidden shadow-lg bg-white">
@@ -50,7 +54,7 @@ export default function CardUi({ card, id }: CardProps) {
           <div className="px-2 flex gap-4">
             <AiFillLike color="red" />
             <FaShare color="red" />
-            {/* <BsSave2 color="red" onClick={handleSave} className="cursor-pointer" /> */}
+            <BsSave2 color="red" onClick={()=>handleSave(card)} className="cursor-pointer" />
           </div>
         </div>
       </div>

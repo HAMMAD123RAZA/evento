@@ -4,12 +4,13 @@ import Home from './components/Home'
 import Card from './components/Card'
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import DetailPage from './components/DetailPage'
-import SavedItems from './components/SavedItems'
+// import SavedItems from './components/SavedItems'
 import AdminHome from './admin/AdminHome'
 import EventCreate from './admin/EventCreate'
 import EventList from './admin/EventList'
 import Login from './components/Login'
 import Register from './components/Register'
+import SavedItems from './components/SavedItems'
 
 const App = () => {
   return (
