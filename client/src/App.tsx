@@ -8,6 +8,8 @@ import SavedItems from './components/SavedItems'
 import AdminHome from './admin/AdminHome'
 import EventCreate from './admin/EventCreate'
 import EventList from './admin/EventList'
+import Login from './components/Login'
+import Register from './components/Register'
 
 const App = () => {
   return (
@@ -20,8 +22,9 @@ const App = () => {
         <Route path="/saved" element={<SavedItems />} />
         <Route path='/admin' element={<AdminHome/>}/>
         <Route path='/admin/event/create' element={<EventCreate/>}/>
-
         <Route path='/admin/event/list' element={<EventList/>}/>
+        <Route path='/user/login' element={<Login/>}/>
+        <Route path='/user/register' element={<Register/>}/>
 
       </Routes>
     </Router>

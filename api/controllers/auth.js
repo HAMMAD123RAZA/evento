@@ -1,19 +1,18 @@
 import { neon } from '@neondatabase/serverless';
-import * as res from 'express/lib/response';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
 
-export const Register=async()=>{
+export const Register=async(req,res)=>{
     const {name,email,password}=req.body;
    try {
-    const user=await sql`SELECT * FROM user WHERE email=${email}`
-    if (user){
+    const user=await sql`SELECT * FROM users WHERE email=${email}`
+    if (user.length>0){
         return res.status(400).json({message:"User already exists"})
     }
     const hashPass=await bcrypt.hash(password,10)
-    const newUser=await sql`INSERT INTO user(name,email,password) VALUES(${name},${email},${hashPass}) RETURNING *`
+    const newUser=await sql`INSERT INTO users (name,email,password) VALUES(${name},${email},${hashPass}) RETURNING *`
     const token=jwt.sign({id:newUser.id},'meriSecKey',{expiresIn:'1h'})
     res.status(201).json({message:"user created Successfully",newUser,token})
    } catch (error) {
@@ -21,13 +20,16 @@ export const Register=async()=>{
    }
 }
 
-export const Login=async()=>{
+export const Login=async(req,res)=>{
     const {email,password}=req.body;
     try {
-        const user=await sql `SELECT * FROM user WHERE email=${email}`
-        if (!user) {
-            res.status(400).json({message:'user doesnt exist'})
+        const users = await sql`SELECT * FROM users WHERE email = ${email}`;
+        if (users.length === 0) { 
+            return res.status(400).json({ message: 'User does not exist' });
         }
+
+        const user = users[0];
+
         const CheckPass=await bcrypt.compare(password,user.password)
         if(!CheckPass){
             return res.status(500).json({message:"invalid password or email"})

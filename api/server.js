@@ -33,5 +33,5 @@ app.delete('/admin/delete/:id',deleteSingleData)
 
 app.delete('/admin/delete/',deleteAllData)
 
-app.post('/admin/register', Register)
-app.post('/admin/login', Login)
+app.post('/user/register', Register)
+app.post('/user/login', Login)
