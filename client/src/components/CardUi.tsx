@@ -18,16 +18,6 @@ interface CardProps {
   id: number;
 }
 
-const handleSave = (card:any) => {
-  const savedCards=JSON.parse(localStorage.getItem('savedCards') || '[]');
-  if(!savedCards.find((items:any)=>items.id===card.id)){
-    savedCards.push(card)
-    localStorage.setItem("savedCards",JSON.stringify(savedCards))
-    alert("Card Saved")
-  }
-  console.log('the saved card is:',card)
-};
-
 export default function CardUi({ card, id }: CardProps) {
 
   return (
@@ -54,7 +44,7 @@ export default function CardUi({ card, id }: CardProps) {
           <div className="px-2 flex gap-4">
             <AiFillLike color="red" />
             <FaShare color="red" />
-            <BsSave2 color="red" onClick={()=>handleSave(card)} className="cursor-pointer" />
+            {/* <BsSave2 color="red" onClick={()=>handleSave(card)} className="cursor-pointer" /> */}
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { AiFillLike } from 'react-icons/ai'
 import { BsSave2 } from 'react-icons/bs'
 import { FaShare } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
+import RElatedItem from './RElatedItem'
 
 export default function DetailPage() {
   const { id } = useParams()
@@ -36,6 +37,17 @@ export default function DetailPage() {
     fetchData()
   }, [id])
 
+  const handleSave = (data:any) => {
+    const savedCards=JSON.parse(localStorage.getItem('savedCards') || '[]');
+    if(!savedCards.find((items:any)=>items.id===data.id)){
+      savedCards.push(data)
+      localStorage.setItem("savedCards",JSON.stringify(savedCards))
+      alert("Card Saved")
+    }
+    console.log('the saved card is:',data)
+  };
+  
+
   if (loading) return <p className="text-center mt-5">Loading...</p>
   if (error) return <p className="text-center mt-5 text-red-500">{error}</p>
 
@@ -64,10 +76,15 @@ export default function DetailPage() {
           <div className="flex py-3 items-center gap-4">
             <AiFillLike size={24} color="red" />
             <FaShare size={24} color="red" />
-            <BsSave2 size={24} color="red" />
+            <BsSave2  onClick={()=>handleSave(data)} size={24} color="red" className='cursor-pointer' />
           </div>
         </div>
       </div>
+
+    {/* Relatd item */}
+    <h1 className='text-center font-bold text-2xl text-red-500' >Related Item</h1>
+    <RElatedItem data={data} />
+
     </div>
   )
 }
