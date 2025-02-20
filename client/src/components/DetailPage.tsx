@@ -83,7 +83,7 @@ export default function DetailPage() {
 
     {/* Relatd item */}
     <h1 className='text-center font-bold text-2xl text-red-500' >Related Item</h1>
-    <RElatedItem data={data}  />
+    <RElatedItem data={data} id={id} />
     </div>
   )
 }
