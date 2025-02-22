@@ -13,6 +13,7 @@ export default function DetailPage() {
   const [error, setError] = useState(null)
   const [Like, setLike] = useState(0)
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {

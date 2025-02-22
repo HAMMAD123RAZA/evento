@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardUi from './CardUi';
 import axios from 'axios'
+import LoadingScreen from './LoadingScreen';
 const cardData=[
   {
     id:1,
@@ -48,7 +49,10 @@ const cardData=[
 
 const Card = () => {
   const [data,setData]=useState([])
+  const [Loading, setLoading] = useState(false)
+
   const getData=async()=>{
+    setLoading(true)
     try {
       const apiData=await axios.get('http://localhost:8080/get')
       setData(apiData.data)
@@ -63,6 +67,9 @@ const Card = () => {
 
   return (
 <>
+{Loading?(
+  <LoadingScreen/>
+):(
 <div className="grid grid-cols-1 md:grid-cols-3 my-10 gap-4">
 {data.map((card,id)=>{
   return (
@@ -72,6 +79,7 @@ const Card = () => {
   )
 })}
 </div>
+)}
 </>
   );
 }
