@@ -56,6 +56,7 @@ const Card = () => {
     try {
       const apiData=await axios.get('http://localhost:8080/get')
       setData(apiData.data)
+      setLoading(false)
     } catch (error) {
       console.log(error)
     }

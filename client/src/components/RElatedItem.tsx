@@ -13,6 +13,7 @@ export default function RElatedItem({ data, id }: any) {
       try {
         const apiData = await axios.get(`http://localhost:8080/get`)
         setRelatedData(apiData.data)
+        setLoading(false)
       } catch (error) {
         console.log("Failed to fetch related items:", error)
       }
