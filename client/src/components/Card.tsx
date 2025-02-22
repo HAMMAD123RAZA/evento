@@ -63,7 +63,7 @@ const Card = () => {
 
   return (
 <>
-<div className="grid grid-cols-1 md:grid-cols-3 ">
+<div className="grid grid-cols-1 md:grid-cols-3 my-10 gap-4">
 {data.map((card,id)=>{
   return (
     <>

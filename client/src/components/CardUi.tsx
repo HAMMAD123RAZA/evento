@@ -21,30 +21,36 @@ interface CardProps {
 export default function CardUi({ card, id }: CardProps) {
 
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-lg bg-white">
+    <div className="max-w-xs  rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1  ">
       <Link to={`/card/${id}`}>
         <img
-          className="w-full h-40 object-cover rounded-t-lg"
+          className="w-full h-48 object-cover rounded-t-lg"
           src={card?.imgurl}
           alt="Card Image"
         />
       </Link>
 
-      <div className="px-6 pt-4">
-        <div className="flex p-2 justify-between">
-          <div className="font-mono text-xl mb-2">{card?.title}</div>
-          <div className="font-mono text-xl mb-2">{card?.date}</div>
+      <div className="px-6 py-4">
+        <div className="flex justify-between items-center mb-4">
+          <div className="font-bold text-xl text-gray-800">{card?.title}</div>
+          <div className="text-sm text-gray-600">{card?.date}</div>
         </div>
-        <p className="text-gray-700 text-base">{card?.description}</p>
-        <div className="flex px-2 py-3 justify-between">
-          <div className="font-mono text-xl mb-2">{card?.Venue}</div>
-          <div className="font-mono text-xl mb-2">{card?.time}</div>
+        <p className="text-gray-700 text-base mb-4">{card?.description}</p>
+        <div className="flex justify-between items-center mb-4">
+          <div className="text-sm text-gray-600">{card?.Venue}</div>
+          <div className="text-sm text-gray-600">{card?.time}</div>
         </div>
-        <div className="flex justify-between items-center p-2">
-          <div className="px-2 flex gap-4">
-            <AiFillLike color="red" />
-            <FaShare color="red" />
-            {/* <BsSave2 color="red" onClick={()=>handleSave(card)} className="cursor-pointer" /> */}
+        <div className="flex justify-between items-center">
+          <div className="flex gap-4 items-center">
+            <div className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+              <AiFillLike className="text-red-500 hover:text-red-700 cursor-pointer" size={20} />
+            </div>
+            <div className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+              <FaShare className="text-red-500 hover:text-red-700 cursor-pointer" size={20} />
+            </div>
+            {/* <div className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+              <BsSave2 className="text-red-500 hover:text-red-700 cursor-pointer" size={20} onClick={()=>handleSave(card)} />
+            </div> */}
           </div>
         </div>
       </div>

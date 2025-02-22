@@ -17,7 +17,6 @@ export default function RElatedItem({ data, id }: any) {
     fetchRelated()
   }, [])
 
-  // Filter out the current product
   const filteredData = relatedData.filter((item: any) => item.id !==Number(id))
 
   return (

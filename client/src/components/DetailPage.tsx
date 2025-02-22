@@ -11,6 +11,7 @@ export default function DetailPage() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [Like, setLike] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +38,22 @@ export default function DetailPage() {
     fetchData()
   }, [id])
 
+// const handleLike=async(data:any)=>{
+// try {
+//   const response=await fetch(`http://localhost:8080/admin/update/${data.id}`,{
+//     method:'PUT',
+//     headers:{
+//       'Content-Type':'application/json'
+//     },
+//     body:JSON.stringify({like:Like+1})
+//   })
+//   console.log(object)
+
+// } catch (error) {
+//   console.log(error)
+// }
+// }
+
   const handleSave = (data:any) => {
     const savedCards=JSON.parse(localStorage.getItem('savedCards') || '[]');
     if(!savedCards.find((items:any)=>items.id===data.id)){
@@ -46,7 +63,7 @@ export default function DetailPage() {
     }
     console.log('the saved card is:',data)
   };
-  
+
 
   if (loading) return <p className="text-center mt-5">Loading...</p>
   if (error) return <p className="text-center mt-5 text-red-500">{error}</p>
@@ -74,7 +91,9 @@ export default function DetailPage() {
             <p className="mt-2 text-gray-800 font">{data.venue || 'Unknown'}</p>
           </div>
           <div className="flex py-3 items-center gap-4">
+            {/* <AiFillLike size={24} color="red" onClick={()=>handleLike(data)} /> */}
             <AiFillLike size={24} color="red" />
+
             <FaShare size={24} color="red" />
             <BsSave2  onClick={()=>handleSave(data)} size={24} color="red" className='cursor-pointer' />
           </div>

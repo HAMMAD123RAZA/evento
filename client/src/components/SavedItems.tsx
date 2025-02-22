@@ -20,8 +20,14 @@ function SavedItems() {
               <img className="w-full h-40 object-cover rounded-t-lg" src={card.imgurl} alt="Card" />
             </Link>
             <div className="p-4">
-              <h3 className="font-mono text-xl mb-2">{card.title}</h3>
+              <h3 className="font-mono text-red-500 text-xl mb-2">{card.title}</h3>
               <p className="text-gray-700 text-sm">{card.description}</p>
+              <h3 className="font-mono text-xl mb-2">{card.Venue}</h3>
+              <div className="flex justify-between items-center">
+              <p className="text-gray-700 text-sm">{card.time}</p>
+             <p className="text-gray-700 text-sm">{card.date}</p>`
+              </div>
+
             </div>
           </div>
         ))}
