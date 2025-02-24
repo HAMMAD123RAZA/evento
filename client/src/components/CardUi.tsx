@@ -21,7 +21,7 @@ interface CardProps {
 export default function CardUi({ card, id }: CardProps) {
 
   return (
-    <div className="max-w-xs  rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1  ">
+    <div className="max-w-xs  rounded-lg overflow-hidden shadow-lg text-white bg-rgb(55, 65, 81)  hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1  ">
       <Link to={`/card/${id}`}>
         <img
           className="w-full h-48 object-cover rounded-t-lg"
@@ -32,13 +32,13 @@ export default function CardUi({ card, id }: CardProps) {
 
       <div className="px-6 py-4">
         <div className="flex justify-between items-center mb-4">
-          <div className="font-bold text-xl text-gray-800">{card?.title}</div>
-          <div className="text-sm text-gray-600">{card?.date}</div>
+          <div className="font-bold text-xl text-white">{card?.title}</div>
+          <div className="text-sm text-white">{card?.date}</div>
         </div>
-        <p className="text-gray-700 text-base mb-4">{card?.description}</p>
+        <p className="text-white text-base mb-4">{card?.description}</p>
         <div className="flex justify-between items-center mb-4">
-          <div className="text-sm text-gray-600">{card?.Venue}</div>
-          <div className="text-sm text-gray-600">{card?.time}</div>
+          <div className="text-sm text-white">{card?.Venue}</div>
+          <div className="text-sm text-white">{card?.time}</div>
         </div>
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">

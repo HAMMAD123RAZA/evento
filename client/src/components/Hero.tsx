@@ -3,9 +3,9 @@ import React from 'react'
 export default function Hero() {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2  py-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 text-white py-4">
         <div className='w-3/5 m-3' >
-        <div className='font-bold text-4xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-gray-700 to-red-500 ' >
+        <div className='font-bold text-4xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-white to-red-500 ' >
         Get Connect <br /> Select And Enjoy <br /> Your Event
         </div>
         <p className='mt-4 text' >Lorem ipsum dolor sit amet consectetur adipisicing elit. At, modi  quae eius nisi veritatis impedit excepturi! Obcaecati minima, at .</p>
