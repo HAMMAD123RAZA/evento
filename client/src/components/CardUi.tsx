@@ -43,13 +43,13 @@ export default function CardUi({ card, id }: CardProps) {
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <div className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
-              <AiFillLike className="text-red-500 hover:text-red-700 cursor-pointer" size={20} />
+              <AiFillLike className="text-white hover:text-white cursor-pointer" size={20} />
             </div>
             <div className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
-              <FaShare className="text-red-500 hover:text-red-700 cursor-pointer" size={20} />
+              <FaShare className="text-white hover:text-white cursor-pointer" size={20} />
             </div>
             {/* <div className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
-              <BsSave2 className="text-red-500 hover:text-red-700 cursor-pointer" size={20} onClick={()=>handleSave(card)} />
+              <BsSave2 className="text-white hover:text-white cursor-pointer" size={20} onClick={()=>handleSave(card)} />
             </div> */}
           </div>
         </div>

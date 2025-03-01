@@ -18,6 +18,7 @@ const Login:React.FC = () => {
             const api=await axios.post<ApiResponse>('http://localhost:8080/user/login',{ email:Email, password:Password})
             setData(api.data)
             console.log(api.data);
+            localStorage.setItem('token', api.data.token)
             if(api.data.success){
                 alert(api.data.message)
             }
@@ -30,6 +31,7 @@ const Login:React.FC = () => {
         } catch (error:any) {
             console.log('err in login',error);
             alert(error.api.data.message)
+            alert(error)
         }
     }
 

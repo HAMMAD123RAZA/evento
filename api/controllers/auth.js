@@ -34,7 +34,7 @@ export const Login=async(req,res)=>{
         if(!CheckPass){
             return res.status(500).json({message:"invalid password or email"})
         }
-        const token=jwt.sign({id:user.id,email},'meriSecKey',{expiresIn:'1h'})
+        const token=jwt.sign({id:user.id,email},'meriSecKey',{expiresIn:'48h'})
         res.status(200).json({message:"user logged in ",token})
 
     } catch (error) {

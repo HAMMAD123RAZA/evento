@@ -4,6 +4,7 @@ import { BsSave2 } from 'react-icons/bs'
 import { FaShare } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import RElatedItem from './RElatedItem'
+import axios from 'axios'
 
 export default function DetailPage() {
   const { id } = useParams()
@@ -13,6 +14,33 @@ export default function DetailPage() {
   const [error, setError] = useState(null)
   const [Like, setLike] = useState(0)
 
+  const handleBuy=async(data:any)=>{
+    if (!data || !data.title || !data.date || !data.venue || !data.description || !data.time) {
+      alert("Invalid event details");
+      return;
+    }
+  
+    const emailData = {
+      title: data.title,
+      date: data.date,
+      venue: data.venue,
+      description: data.description,
+      time: data.time,
+      // userEmail: "user@example.com",  // Replace with actual user email
+    };
+  
+  
+    try {
+      const api=await axios.post('http://localhost:8080/send_email_Request',{emailData})
+      alert('Alright your request is in processing')
+      console.log(api.data)
+      
+    } catch (error) {
+      console.log('oh sorry something wrong',error)
+      alert('oh sorry something wrong')
+
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,9 +89,13 @@ export default function DetailPage() {
       savedCards.push(data)
       localStorage.setItem("savedCards",JSON.stringify(savedCards))
       alert("Card Saved")
+    } else{
+      alert("Card Already Saved")
     }
     console.log('the saved card is:',data)
+  
   };
+ 
 
 
   if (loading) return <p className="text-center mt-5">Loading...</p>
@@ -85,11 +117,11 @@ export default function DetailPage() {
 
         <div>
           <h1 className="text-2xl font-bold mt-4">{data.title}</h1>
-          <p className="text-gray-700 max-w-xl">{data.description}</p>
+          <p className="text-gray-100 max-w-xl">{data.description}</p>
           <div className="flex items-center gap-9 mt-4">
-            <p className="text-gray-600">{data.date || 'N/A'}</p>
-            <p className="text-gray-600">{data.time || 'N/A'}</p>
-            <p className="mt-2 text-gray-800 font">{data.venue || 'Unknown'}</p>
+            <p className="text-gray-100">{data.date || 'N/A'}</p>
+            <p className="text-gray-100">{data.time || 'N/A'}</p>
+            <p className="mt-2 text-gray-100 font">{data.venue || 'Unknown'}</p>
           </div>
           <div className="flex py-3 items-center gap-4">
             {/* <AiFillLike size={24} color="red" onClick={()=>handleLike(data)} /> */}
@@ -98,6 +130,7 @@ export default function DetailPage() {
             <FaShare size={24} color="red" />
             <BsSave2  onClick={()=>handleSave(data)} size={24} color="red" className='cursor-pointer' />
           </div>
+            <button onClick={()=>handleBuy(data)} className="bg-red-500 text-white px-4 py-2 rounded-md mt-4">Buy Ticket</button>
         </div>
       </div>
 

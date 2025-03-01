@@ -11,6 +11,7 @@ import EventList from './admin/EventList'
 import Login from './components/Login'
 import Register from './components/Register'
 import SavedItems from './components/SavedItems'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 const App = () => {
   return (
@@ -20,13 +21,12 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home/>}/>  
         <Route path='/card/:id' element={<DetailPage  />}/>
-        <Route path="/saved" element={<SavedItems />} />
-        <Route path='/admin' element={<AdminHome/>}/>
-        <Route path='/admin/event/create' element={<EventCreate/>}/>
-        <Route path='/admin/event/list' element={<EventList/>}/>
+        <Route path="/saved" element={<ProtectedRoute element={<SavedItems/>} />} />
+        <Route path='/admin' element={<ProtectedRoute element={<AdminHome/>} />}/>
+        <Route path='/admin/event/create' element={<ProtectedRoute element={<EventCreate/>} />}/>
+        <Route path='/admin/event/list' element={<ProtectedRoute element={<EventList/>} />}/>
         <Route path='/user/login' element={<Login/>}/>
         <Route path='/user/register' element={<Register/>}/>
-
       </Routes>
     </Router>
     </>

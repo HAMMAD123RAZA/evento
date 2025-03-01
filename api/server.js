@@ -4,14 +4,17 @@ import { neon } from '@neondatabase/serverless';
 import { createData } from './controllers/create.js';
 import { getData, getSignleData } from './controllers/getdata.js';
 import { updateData } from './controllers/updateData.js';
-
+import nodemailer from 'nodemailer'
 import { deleteSingleData, deleteAllData } from './controllers/deleteData.js';
 import { Login, Register } from './controllers/auth.js';
+import { sendEmail } from './controllers/send-email.js';
+import { sendEmailVerify } from './controllers/Send_Email_Verify.js';
+
+
 const app = express();
 app.use(cors());
 app.use(express.json()); 
 
-const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
 
 app.listen(8080, () => {
     console.log("Server started");
@@ -35,3 +38,6 @@ app.delete('/admin/delete/',deleteAllData)
 
 app.post('/user/register', Register)
 app.post('/user/login', Login)
+
+app.post('/send_email_Request',sendEmail)
+app.post('/send_email_verify', sendEmailVerify)

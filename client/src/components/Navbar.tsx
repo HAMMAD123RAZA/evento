@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-gray-700 text-red-500 p-5 h-24 w-full flex justify-between items-center">
+      <div className="bg-black text-red-500 p-5 h-24 w-full flex justify-between items-center">
         <div className=" bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-gray-200 to-red-300 text-2xl font-bold">Evento</div>
         
         {/* Desktop Menu */}
