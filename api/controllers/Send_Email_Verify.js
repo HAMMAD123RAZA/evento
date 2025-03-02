@@ -5,11 +5,11 @@ import crypto from "crypto";
 import { neon } from "@neondatabase/serverless";
 const sql = neon(
     "postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
-  );
-
+);
 
 export const sendEmailVerify = async (req, res) => {
   try {
+    console.log("Email verification request received:", req.body);
     const { email, userId } = req.body;
 
     if (!email || !userId) {
@@ -22,6 +22,7 @@ export const sendEmailVerify = async (req, res) => {
     const expireTime = new Date();
     expireTime.setHours(expireTime.getHours() + 24);
 
+    console.log("Updating user with verification token:", { userId, token });
 
     // Add WHERE clause to update only the specific user
     const data = await sql`
@@ -33,6 +34,8 @@ export const sendEmailVerify = async (req, res) => {
       RETURNING *
     `;
 
+    console.log("Database update result:", data);
+
     // Check if the user was found and updated
     if (data.length === 0) {
       return res
@@ -40,13 +43,15 @@ export const sendEmailVerify = async (req, res) => {
         .json({ message: "User not found", success: false });
     }
 
-    const verificationUrl = `http://localhost:8080/verify-email?userId=${userId}&token=${token}&expireTime=${expireTime.toISOString()}`;
+    // Use the correct frontend URL and route pattern
+    const verificationUrl = `http://localhost:5173/verify-email?userId=${userId}&token=${token}`;
+    console.log("Generated verification URL:", verificationUrl);
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: "01hammadraza@gmail.com",
-        pass: "wsqs mwzw sacu liih",
+        pass: "wsqs mwzw sacu liih", // Note: Consider using environment variables for credentials
       },
     });
 
@@ -63,13 +68,17 @@ export const sendEmailVerify = async (req, res) => {
       `,
     };
 
+    console.log("Sending email to:", email);
     const sendMail = await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully:", sendMail);
+
     res.status(200).json({
       message: "Verification email sent successfully",
       success: true,
       sendMail,
     });
   } catch (error) {
+    console.error("Error in sending email - full error:", error);
     res
       .status(500)
       .json({
@@ -77,57 +86,55 @@ export const sendEmailVerify = async (req, res) => {
         success: false,
         error: error.message,
       });
-    console.log("error in sending email", error);
   }
 };
 
 export const verifyEmail = async (req, res) => {
-  const { userId, token, expireTime } = req.query;
-
   try {
+    console.log("Verifying email with query parameters:", req.query);
+    const { userId, token } = req.query;
+
+    if (!userId || !token) {
+      return res
+        .status(401)
+        .json({ message: "Invalid verification link", success: false });
+    }
 
     const data = await sql`
-      SELECT * FROM "user" WHERE "id" = ${userId} AND "VerificationToken" = ${token} AND "tokenExpires" > ${new Date()}
+      SELECT * FROM "user" 
+      WHERE "id" = ${userId} 
+      AND "VerificationToken" = ${token} 
+      AND "tokenExpires" > ${new Date()}
     `;
 
+    console.log("Verification lookup result:", data.length > 0 ? "User found" : "User not found");
+
     if (data.length === 0) {
-      return res.status(404).json({ message: 'User not found or token expired', success: false });
+      return res.status(404).json({ 
+        message: 'Invalid or expired verification link', 
+        success: false 
+      });
     }
 
     // Update the user's verification status
-    await sql`
-      UPDATE "user" SET "isVerified" = ${true} WHERE "id" = ${userId}
+    const updateResult = await sql`
+      UPDATE "user" 
+      SET "isVerified" = ${true} 
+      WHERE "id" = ${userId}
     `;
 
-    res.status(200).json({ message: 'Email verified successfully', success: true });
+    console.log("User verification status updated");
+
+    res.status(200).json({ 
+      message: 'Email verified successfully', 
+      success: true 
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error verifying email', success: false, error: error.message });
+    console.error("Error verifying email:", error);
+    res.status(500).json({ 
+      message: 'Error verifying email', 
+      success: false, 
+      error: error.message 
+    });
   }
 };
-
-// export const verifyEmail = async (req, res) => {
-//   try {
-//     const { userId, token ,expireTime} = req.query;
-
-//     if (!userId || !token) {
-//       return res
-//         .status(401)
-//         .json({ message: "invalid verification link", success: false });
-//     }
-
-//     const data=await sql `
-//     SELECT * FROM user WHERE id=${userId} AND verificationToken=${token} AND tokenExpires > ${new Date()}
-//     `
-// if(data.length==0){
-//     return res.status(401).json({message:'invalid or expire link',success:false})
-// }
-
-// await sql`
-// UPDATE user SET isVerified=${true} WHERE id=${userId}
-// `
-
-// res.status(200).json({ message: 'Email verified successfully', success: true });
-// } catch (error) {
-//   res.status(500).json({ message: 'Error verifying email', success: false, error: error.message });
-// }
-// };

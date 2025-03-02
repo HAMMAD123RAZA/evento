@@ -34,26 +34,31 @@ const Register = () => {
                 
                 if (userId) {
                     try {
+                        console.log("Sending verification email for userId:", userId)
                         const verifyResponse = await axios.post(
                             'http://localhost:8080/user/send_email_verify',
                             { email: Email, userId }
                         )
                         
+                        console.log("Verification email response:", verifyResponse.data)
+                        
                         if (verifyResponse.data.success) {
                             setVerificationSent(true)
                             alert('Registration successful! Please check your email to verify your account.')
                         } else {
+                            console.error('Error from verification endpoint:', verifyResponse.data)
                             alert(`Registration successful but couldn't send verification email: ${verifyResponse.data.message}`)
                         }
                     } catch (verifyError: any) {
                         console.error('Error sending verification email:', verifyError)
-                        alert('Registration successful but verification email could not be sent. Please contact support.')
+                        console.error('Response data:', verifyError.response?.data)
+                        alert(`Registration successful but verification email failed: ${verifyError.response?.data?.message || verifyError.message}`)
                     }
                 } else {
                     alert('Registration successful! Please log in.')
                 }
                 
-                // Store token if avilable
+                // Store token if available
                 if (registerResponse.data.token) {
                     localStorage.setItem('token', registerResponse.data.token)
                 }
@@ -81,7 +86,7 @@ const Register = () => {
                         <h2 className="text-2xl font-bold text-blue-500 mb-4">Verification Email Sent!</h2>
                         <p className="mb-4">
                             We've sent a verification email to <strong>{Email}</strong>.
-                            Please check your inbox and click the vesrification link to activate your account.
+                            Please check your inbox and click the verification link to activate your account.
                         </p>
                         <p className="text-sm text-gray-500">
                             The verification link will expire in 24 hours.

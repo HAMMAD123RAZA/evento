@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const VerifyEmail:React.FC = () => {
+const VerifyEmail: React.FC = () => {
     const [verifying, setVerifying] = useState(true)
     const [success, setSuccess] = useState(false)
     const [message, setMessage] = useState('')
@@ -24,8 +24,9 @@ const VerifyEmail:React.FC = () => {
             }
             
             try {
+                console.log("Verifying email with params:", { userId, token })
                 const response = await axios.get(
-                    `http://localhost:8080/user/verify-email?userId=${userId}&token=${token}`
+                    `http://localhost:8080/user/send_email_verify?userId=${userId}&token=${token}`
                 )
                 
                 setVerifying(false)
@@ -38,6 +39,7 @@ const VerifyEmail:React.FC = () => {
                     setMessage(response.data.message || 'Email verification failed')
                 }
             } catch (error: any) {
+                console.error("Verification error:", error)
                 setVerifying(false)
                 setSuccess(false)
                 setMessage(error.response?.data?.message || 'Email verification failed')
