@@ -40,4 +40,4 @@ app.post('/user/register', Register)
 app.post('/user/login', Login)
 
 app.post('/send_email_Request',sendEmail)
-app.post('/send_email_verify', sendEmailVerify)
+app.post('/user/send_email_verify', sendEmailVerify)
