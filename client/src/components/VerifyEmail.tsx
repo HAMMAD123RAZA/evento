@@ -25,7 +25,7 @@ const VerifyEmail:React.FC = () => {
             
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/user/verify-email?userId=${userId}&token=${token}`
+                    `http://localhost:8080/user/send_email_verify?userId=${userId}&token=${token}`
                 )
                 
                 setVerifying(false)
