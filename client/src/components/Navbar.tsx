@@ -30,7 +30,7 @@ const Navbar = () => {
           <ul className="flex space-x-6">
             {NavbarData.menu.map((item, id) => (
               <li key={id}>
-                <Link to={item.href} className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-white to-red-500 hover:border-b-2 border-red-300 transition-all ease-in-out duration-300">
+                <Link to={item.href} className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-white to-red-500 hover:bg-gradient-to-r hover:from-white hover:via-red-500 hover:to-white transition-all ease-in-out duration-300 hover:border-b-2 border-gray-500">
                   {item.title}
                 </Link>
               </li>
