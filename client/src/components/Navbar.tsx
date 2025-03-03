@@ -51,7 +51,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Nav */}
-      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-gray-700 w-full`}>
+      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-black w-full`}>
         <ul className='flex flex-col p-4'>
           {NavbarData.menu.map((item, id) => (
             <li key={id} className="mb-2">

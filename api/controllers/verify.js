@@ -1,16 +1,15 @@
 import { neon } from '@neondatabase/serverless';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
-
+ 
 const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
 
 // Create email transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  service: 'gmail', // You can change this based on your email provider
   auth: {
-    user: '01hammadraza@gmail.com', 
-    pass:'wsqs mwzw sacu liih'
+    user: 'your-email@gmail.com', // Replace with your email
+    pass: 'your-app-password' // Replace with your app password
   }
 });
 
@@ -47,11 +46,11 @@ export const sendEmailVerify = async (req, res) => {
     `;
     
     // Create verification URL
-    const verificationUrl = `http://localhost:5173/verify-email?token=${verificationToken}`;
+    const verificationUrl = `http://localhost:3000/verify-email?token=${verificationToken}`;
     
     // Email content
     const mailOptions = {
-      from: '01hammadraza@gmail.com',
+      from: 'your-email@gmail.com',
       to: email,
       subject: 'Verify Your Email Address',
       html: `

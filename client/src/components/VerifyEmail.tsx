@@ -1,99 +1,82 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSearchParams, Link } from 'react-router-dom';
 
-const VerifyEmail: React.FC = () => {
-    const [verifying, setVerifying] = useState(true)
-    const [success, setSuccess] = useState(false)
-    const [message, setMessage] = useState('')
-    const location = useLocation()
-    const navigate = useNavigate()
+const VerifyEmail = () => {
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get('token');
+    
+    const [verificationStatus, setVerificationStatus] = useState<'verifying' | 'success' | 'error'>('verifying');
+    const [message, setMessage] = useState<string>('Verifying your email...');
     
     useEffect(() => {
-        const verifyUserEmail = async () => {
-            // Get query parameters from URL
-            const searchParams = new URLSearchParams(location.search)
-            const userId = searchParams.get('userId')
-            const token = searchParams.get('token')
-            
-            if (!userId || !token) {
-                setVerifying(false)
-                setSuccess(false)
-                setMessage('Invalid verification link')
-                return
-            }
-            
-            try {
-                console.log("Verifying email with params:", { userId, token })
-                const response = await axios.get(
-                    `http://localhost:8080/user/send_email_verify?userId=${userId}&token=${token}`
-                )
-                
-                setVerifying(false)
-                
-                if (response.data.success) {
-                    setSuccess(true)
-                    setMessage(response.data.message || 'Your email has been successfully verified!')
-                } else {
-                    setSuccess(false)
-                    setMessage(response.data.message || 'Email verification failed')
-                }
-            } catch (error: any) {
-                console.error("Verification error:", error)
-                setVerifying(false)
-                setSuccess(false)
-                setMessage(error.response?.data?.message || 'Email verification failed')
-            }
+        if (!token) {
+            setVerificationStatus('error');
+            setMessage('Invalid verification link. No token provided.');
+            return;
         }
         
-        verifyUserEmail()
-    }, [location])
-    
-    const handleRedirectToLogin = () => {
-        navigate('/user/login')
-    }
+        const verifyEmail = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/verify-email?token=${token}`);
+                
+                if (response.data.success) {
+                    setVerificationStatus('success');
+                    setMessage('Your email has been successfully verified!');
+                } else {
+                    setVerificationStatus('error');
+                    setMessage(response.data.message || 'Verification failed. Please try again.');
+                }
+            } catch (error: any) {
+                setVerificationStatus('error');
+                setMessage(error.response?.data?.message || 'Verification failed. The link may be expired or invalid.');
+            }
+        };
+        
+        verifyEmail();
+    }, [token]);
     
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-6">
             <div className="p-12 rounded-lg border-2 border-gray-00 bg-gray-00 my-3 text-center max-w-md">
-                <h1 className="text-2xl font-bold text-blue-500 mb-4">Email Verification</h1>
+                {verificationStatus === 'verifying' && (
+                    <>
+                        <h2 className="text-2xl font-bold text-blue-500 mb-4">Email Verification</h2>
+                        <p className="mb-4">{message}</p>
+                        <div className="flex justify-center">
+                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
+                        </div>
+                    </>
+                )}
                 
-                {verifying ? (
-                    <div className="flex flex-col items-center">
-                        <p className="mb-4">Verifying your email...</p>
-                        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                ) : success ? (
-                    <div>
-                        <div className="flex justify-center mb-4">
-                            <svg className="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                        </div>
-                        <p className="mb-6">{message}</p>
-                        <button 
-                            onClick={handleRedirectToLogin}
-                            className="p-2 bg-blue-500 text-white rounded-md w-full"
+                {verificationStatus === 'success' && (
+                    <>
+                        <h2 className="text-2xl font-bold text-green-500 mb-4">Email Verified!</h2>
+                        <p className="mb-4">{message}</p>
+                        <Link 
+                            to="/user/login" 
+                            className="block w-full py-2 px-4 bg-blue-500 text-white text-center rounded-md hover:bg-blue-600 transition"
                         >
-                            Login to Your Account
-                        </button>
-                    </div>
-                ) : (
-                    <div>
-                        <div className="flex justify-center mb-4">
-                            <svg className="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </div>
-                        <p className="mb-6">{message}</p>
-                        <p className="text-sm">
-                            If you're having trouble verifying your email, please contact support.
-                        </p>
-                    </div>
+                            Log In Now
+                        </Link>
+                    </>
+                )}
+                
+                {verificationStatus === 'error' && (
+                    <>
+                        <h2 className="text-2xl font-bold text-red-500 mb-4">Verification Failed</h2>
+                        <p className="mb-4">{message}</p>
+                        <Link 
+                            to="/user/register" 
+                            className="block w-full py-2 px-4 bg-blue-500 text-white text-center rounded-md hover:bg-blue-600 transition"
+                        >
+                            Back to Registration
+                        </Link>
+                    </>
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default VerifyEmail
+export default VerifyEmail;

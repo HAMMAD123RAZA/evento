@@ -5,7 +5,8 @@ interface ApiResponse {
     success: boolean;   
     message: string;
     token?: string;
-    userId?: string;
+    id?: string;
+    newUser?: any;
 }
 
 const Register = () => {
@@ -17,66 +18,31 @@ const Register = () => {
     const [Data, setData] = useState<ApiResponse | null>(null)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setLoading(true)
-        
+        e.preventDefault();
+        setLoading(true);
+    
         try {
+            // Register the user
             const registerResponse = await axios.post<ApiResponse>(
                 'http://localhost:8080/user/register',
                 { name, email: Email, password: Password }
-            )
+            );
+    
+            setData(registerResponse.data);
             
-            setData(registerResponse.data)
-            
-            if (registerResponse.data.success) {
-                // If registration successful, send verification email
-                const userId = registerResponse.data.userId
-                
-                if (userId) {
-                    try {
-                        console.log("Sending verification email for userId:", userId)
-                        const verifyResponse = await axios.post(
-                            'http://localhost:8080/user/send_email_verify',
-                            { email: Email, userId }
-                        )
-                        
-                        console.log("Verification email response:", verifyResponse.data)
-                        
-                        if (verifyResponse.data.success) {
-                            setVerificationSent(true)
-                            alert('Registration successful! Please check your email to verify your account.')
-                        } else {
-                            console.error('Error from verification endpoint:', verifyResponse.data)
-                            alert(`Registration successful but couldn't send verification email: ${verifyResponse.data.message}`)
-                        }
-                    } catch (verifyError: any) {
-                        console.error('Error sending verification email:', verifyError)
-                        console.error('Response data:', verifyError.response?.data)
-                        alert(`Registration successful but verification email failed: ${verifyError.response?.data?.message || verifyError.message}`)
-                    }
-                } else {
-                    alert('Registration successful! Please log in.')
-                }
-                
-                // Store token if available
-                if (registerResponse.data.token) {
-                    localStorage.setItem('token', registerResponse.data.token)
-                }
-                
-                // Reset form
-                setName('')
-                setEmail('')
-                setPassword('')
-            } else {
-                alert(registerResponse.data.message)
+            if (registerResponse.data.success !== false) {
+                // Send verification email
+                await axios.post('http://localhost:8080/send_email_verify', { email: Email });
+                setVerificationSent(true);
             }
+         
         } catch (error: any) {
-            console.error('Error in register:', error)
-            alert(error.response?.data?.message || 'Registration failed. Please try again.')
+            console.error('Error in register:', error);
+            alert(error.response?.data?.message || 'Registration failed. Please try again.');
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <>
