@@ -3,6 +3,7 @@ import Card from './Card'
 import Hero from './Hero'
 import Slider from './Slider'
 import GridImg from './GridImg' 
+import UpComingHome from './blog/UpComingHome'
 
 const Home = () => {
   return (
@@ -11,7 +12,7 @@ const Home = () => {
       <Slider/>
       <GridImg/>
       <Card/>
-
+      <UpComingHome/>
     </>
   )
 }

@@ -35,6 +35,7 @@ const Register = () => {
                 await axios.post('http://localhost:8080/send_email_verify', { email: Email });
                 setVerificationSent(true);
             }
+            localStorage.setItem('user', registerResponse.data);
          
         } catch (error: any) {
             console.error('Error in register:', error);

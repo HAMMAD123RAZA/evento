@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 const sliderData = [
     {
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkxaQMX4NW8V5JvJ1hV1laDEmbgbPNvNEUA&s',
+        img: 'https://cdn.pixabay.com/photo/2020/05/11/09/03/conductor-5157153_1280.jpg',
         title: 'Event 1',
         description: '    Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia enim incidunt rem similique quos dolorum obcaecati, commodi sunt perspiciatis, ab maiores nihil, quibusdam odit labore eligendi rerum natus nesciunt ut.'
     },
     {
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxjjqqD4-nOCDzcIFZCw8wsiGS1vYK4zpmFg&s',
+        img: 'https://media.istockphoto.com/id/499517325/photo/a-man-speaking-at-a-business-conference.jpg?s=1024x1024&w=is&k=20&c=iCUzJvudLPi2HnpAAzIVVqgQVAlnI9TigkEcXcH2NY4=',
         title: 'Event 2',
         description: '    Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia enim incidunt rem similique quos dolorum obcaecati, commodi sunt perspiciatis, ab maiores nihil, quibusdam odit labore eligendi rerum natus nesciunt ut.'
     },
     {
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6vp0V2VPucw5cUBEopKo5lQD8VdnB_p-sog&s',
+        img: 'https://cdn.pixabay.com/photo/2023/04/03/12/59/crowd-7896788_1280.jpg',
         title: 'Event 3',
         description: '    Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia enim incidunt rem similique quos dolorum obcaecati, commodi sunt perspiciatis, ab maiores nihil, quibusdam odit labore eligendi rerum natus nesciunt ut.'
     },

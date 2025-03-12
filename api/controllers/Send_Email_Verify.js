@@ -47,9 +47,11 @@ export const sendEmailVerify = async (req, res) => {
     `;
     
     // Create verification URL
-    const verificationUrl = `http://localhost:5173/verify-email?token=${verificationToken}`;
-    
+    // const verificationUrl = `http://localhost:8080/verify-email?token=${verificationToken}`;//backend url route
+    const verificationUrl = `http://localhost:5173/verify-email?token=${verificationToken}`;//my frontend route 
+
     // Email content
+
     const mailOptions = {
       from: '01hammadraza@gmail.com',
       to: email,
@@ -131,3 +133,49 @@ export const verifyEmail = async (req, res) => {
     });
   }
 };
+
+// export const verifyEmail = async (req, res) => {
+//   const { token } = req.query;
+
+//   try {
+//     console.log('Token from request:', token); // Log the token
+    
+//     const users = await sql`
+//       SELECT * FROM users 
+//       WHERE verification_token = ${token} 
+//       AND token_expiry > NOW()
+//     `;
+    
+//     if (users.length === 0) {
+//       console.log('Invalid or expired token'); // Log if token is invalid or expired
+//       return res.status(400).json({ 
+//         success: false, 
+//         message: 'Invalid or expired verification token' 
+//       });
+//     }
+    
+//     const user = users[0];
+//     console.log('User found:', user); // Log the user data
+    
+//     await sql`
+//       UPDATE users 
+//       SET is_verified = true, 
+//           verification_token = NULL, 
+//           token_expiry = NULL 
+//       WHERE id = ${user.id}
+//     `;
+    
+//     res.status(200).json({ 
+//       success: true, 
+//       message: 'Email verified successfully , You can now cut this page and get back to the website ' 
+//     });
+    
+//   } catch (error) {
+//     console.error('Error verifying email:', error);
+//     res.status(500).json({ 
+//       success: false, 
+//       message: 'Error verifying email', 
+//       error: error.message 
+//     });
+//   }
+// };

@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 export const sendEmail=async(req,res)=>{
-    const {emailData}=req.body;
+    const {emailData,userEmail}=req.body;
     const transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -11,7 +11,7 @@ export const sendEmail=async(req,res)=>{
     
     const mailOptions={
         from:'01hammadraza@gmail.com',
-        to: '01hammadraza@gmail.com',
+        to: userEmail,
         subject:`Event subscribed :${emailData?.title}`,
         html:`
               <h2>${emailData?.title}</h2>

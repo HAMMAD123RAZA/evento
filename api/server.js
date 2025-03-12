@@ -9,6 +9,7 @@ import { deleteSingleData, deleteAllData } from './controllers/deleteData.js';
 import { Login, Register } from './controllers/auth.js';
 import { sendEmail } from './controllers/send-email.js';
 import { sendEmailVerify, verifyEmail } from './controllers/Send_Email_Verify.js';
+import { getMessages, sendMessage, verifyToken } from './controllers/message.js';
 
 const app = express();
 app.use(cors());
@@ -35,6 +36,8 @@ app.post('/user/login', Login);
 
 // Email verification routes
 app.post('/send_email_verify', sendEmailVerify);
-app.get('/verify-email', verifyEmail);
+app.get('/api/verify-email', verifyEmail); 
 
 app.post('/send_email_Request', sendEmail);
+app.post('/send_msg',verifyToken,sendMessage)
+app.get('/get_msg',getMessages)

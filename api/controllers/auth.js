@@ -39,7 +39,7 @@ export const Register = async (req, res) => {
         
         // Generate JWT token
         const token = jwt.sign({ id: newUser[0].id }, 'meriSecKey', { expiresIn: '1h' });
-        
+        // localStorage.setItem("user be",newUser[0].id)
         res.status(201).json({
             success: true,
             message: "User created successfully. Please verify your email.",
@@ -87,7 +87,8 @@ export const Login = async (req, res) => {
         res.status(200).json({ 
             success: true, 
             message: "User logged in successfully", 
-            token 
+            token ,
+            user
         });
 
     } catch (error) {

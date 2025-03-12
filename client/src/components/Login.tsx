@@ -25,6 +25,7 @@ const Login:React.FC = () => {
             else{
                 alert(api.data.message)
             }
+            localStorage.setItem('user', JSON.stringify(api.data))
             setEmail('')
             setPassword('')
 

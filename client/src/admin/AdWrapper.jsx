@@ -19,7 +19,13 @@ const menuItems = [
     active: false,
     link: "/admin/event/list",
     icons: 'https://thumbs.dreamstime.com/b/calendar-date-date-notes-business-office-event-icon-template-black-color-editable-calendar-date-symbol-flat-vector-illustration-171286982.jpg'
-  }
+  },
+  {
+    name: "Message",
+    active: false,
+    link: "/admin/msg",
+    icons: 'https://www.shutterstock.com/image-vector/dashboard-vector-icon-website-other-600nw-1421089664.jpg'
+  },
 ];
 
 const AdWrapper = ({ children }) => {

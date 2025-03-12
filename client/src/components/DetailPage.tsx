@@ -13,6 +13,9 @@ export default function DetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [Like, setLike] = useState(0)
+  const user=localStorage.getItem('user')
+const userEmail=user.email;
+console.log('user email from buy :',userEmail)
 
   const handleBuy=async(data:any)=>{
     if (!data || !data.title || !data.date || !data.venue || !data.description || !data.time) {
@@ -31,7 +34,7 @@ export default function DetailPage() {
   
   
     try {
-      const api=await axios.post('http://localhost:8080/send_email_Request',{emailData})
+      const api=await axios.post('http://localhost:8080/send_email_Request',{emailData,userEmail})
       alert('Alright your request is in processing')
       console.log(api.data)
       
@@ -125,7 +128,7 @@ export default function DetailPage() {
           </div>
           <div className="flex py-3 items-center gap-4">
             {/* <AiFillLike size={24} color="red" onClick={()=>handleLike(data)} /> */}
-            <AiFillLike size={24} color="red" />
+            {/* <AiFillLike size={24} color="red" /> */}
 
             <FaShare size={24} color="red" />
             <BsSave2  onClick={()=>handleSave(data)} size={24} color="red" className='cursor-pointer' />

@@ -6,9 +6,10 @@ import { CiSaveUp2 } from "react-icons/ci";
 const NavbarData = {
   menu: [
     { title: "Home", href: '/' },
-    { title: "About", href: '/about' },
-    { title: "Contact", href: '/contact' },
-    { title: "Services", href: '/services' },
+    { title: "Events", href: '/events' },
+    { title: "blog", href: '/blog' },
+    { title: "User", href: '/user' }
+
   ]
 };
 
@@ -22,7 +23,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-black text-red-500 p-5 h-24 w-full flex justify-between items-center">
+      <div className="bg-gray-950 text-red-500 p-5 h-24 w-full flex justify-between items-center">
         <div className=" bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-gray-200 to-red-300 text-2xl font-bold">Evento</div>
         
         {/* Desktop Menu */}

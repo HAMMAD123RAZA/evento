@@ -13,6 +13,11 @@ import Register from './components/Register'
 import SavedItems from './components/SavedItems'
 import ProtectedRoute from './auth/ProtectedRoute'
 import VerifyEmail from './components/verifyEmail.tsx'
+import Events from './components/Events.tsx'
+import Upcoming from './components/UpComing'
+import Footer from './components/Footer'
+import UserProfile from './components/UserProfile'
+import AdminMsg from './components/AdminMsg'
 
 const App = () => {
   return (
@@ -23,13 +28,21 @@ const App = () => {
     <Route path='/' element={<Home />} />
     <Route path='/card/:id' element={<DetailPage />} />
     <Route path="/saved" element={<ProtectedRoute element={<SavedItems />} />} />
+    <Route path="/events" element={<ProtectedRoute element={<Events />} />} />
+
     <Route path='/admin' element={<ProtectedRoute element={<AdminHome />} />} />
     <Route path='/admin/event/create' element={<ProtectedRoute element={<EventCreate />} />} />
     <Route path='/admin/event/list' element={<ProtectedRoute element={<EventList />} />} />
     <Route path='/user/login' element={<Login />} />
     <Route path='/user/register' element={<Register />} />
-    <Route path='/verify-email' element={<VerifyEmail />} />
+    <Route path='/verify-email' element={<VerifyEmail />} /> 
+    <Route path='/blog' element={<Upcoming />} /> 
+    <Route path='/user' element={<UserProfile />} /> 
+    <Route path='/admin/msg' element={<AdminMsg />} /> 
+
+
   </Routes>
+  <Footer/>
 </Router>
     </>
   )
