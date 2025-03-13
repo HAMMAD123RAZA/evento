@@ -44,5 +44,5 @@ app.post('/send_msg',verifyToken,sendMessage)
 app.get('/get_msg',getMessages)
 
 app.post('/create/blog',createBlog)
-app.get('/get/blogs', getBlog)
+app.get('/getAll/blogs', getBlog)
 app.get('/get/blog/:id', getBlogById)
