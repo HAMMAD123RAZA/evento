@@ -38,24 +38,24 @@ const Login:React.FC = () => {
 
   return (
     <>
-    <form onSubmit={(e)=> handleSubmit(e)}  className="flex flex-col justify-center items-center">
-        <div className="p-10 rounded-lg border-2 border-gray-300 bg-gray-200 my-3">
-            <h1 className="text-2xl font-bold text-center text-blue-500 py-3">Login</h1>
-            <div className="flex flex-col gap-4">
+    <form onSubmit={(e)=> handleSubmit(e)}  className="flex text-white flex-col justify-center items-center">
+        <div className="p-10 rounded-lg border-2 border-gray-300 bg-gray-950 my-3">
+            <h1 className="text-2xl font-bold text-center text-red-500 py-3">Login</h1>
+            <div className="flex flex-col gap-4 ">
      
                 <div className='py-1'>
-                    <label className='block py-1 text-blue-500 font-bold ' htmlFor="email">Email</label>
-                    <input required value={Email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="Email" className="p-2 focus:ring-2 focus:ring-blue-500 border border-gray-300 rounded-md" />
+                    <label className='block py-1 text-red-500 font-bold ' htmlFor="email">Email</label>
+                    <input required value={Email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="Email" className="p-2 focus:ring-2 focus:ring-red-500 bg-gray-950 border border-gray-300 rounded-md" />
 
                 </div>
                 <div className='py-1'>
-                    <label className='block py-1 text-blue-500 font-bold ' htmlFor="email">Password</label>
-                    <input required value={Password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Password" className="p-2 border border-gray-300 rounded-md" />
+                    <label className='block py-1 text-red-500 font-bold ' htmlFor="email">Password</label>
+                    <input required value={Password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Password" className="p-2 bg-gray-950 border border-gray-300 rounded-md" />
 
                 </div>
 
-                <button className="p-2 bg-blue-500 text-white rounded-md">login</button>
-                <p className='text-center'>Don't have an account? <a className='text-blue-500' href="/user/register">Signup</a></p>
+                <button className="p-2 bg-red-500 text-white rounded-md">login</button>
+                <p className='text-center'>Don't have an account? <a className='text-red-500' href="/user/register">Signup</a></p>
             </div>
         </div>
     </form>

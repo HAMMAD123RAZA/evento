@@ -10,6 +10,7 @@ import { Login, Register } from './controllers/auth.js';
 import { sendEmail } from './controllers/send-email.js';
 import { sendEmailVerify, verifyEmail } from './controllers/Send_Email_Verify.js';
 import { getMessages, sendMessage, verifyToken } from './controllers/message.js';
+import { createBlog, getBlog, getBlogById } from './controllers/blog.js';
 
 const app = express();
 app.use(cors());
@@ -41,3 +42,7 @@ app.get('/api/verify-email', verifyEmail);
 app.post('/send_email_Request', sendEmail);
 app.post('/send_msg',verifyToken,sendMessage)
 app.get('/get_msg',getMessages)
+
+app.post('/create/blog',createBlog)
+app.get('/get/blogs', getBlog)
+app.get('/get/blog/:id', getBlogById)

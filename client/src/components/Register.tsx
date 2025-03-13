@@ -50,7 +50,7 @@ const Register = () => {
             {verificationSent ? (
                 <div className="flex flex-col items-center justify-center p-6">
                     <div className="p-12 rounded-lg border-2 border-gray-00 bg-gray-00 my-3 text-center">
-                        <h2 className="text-2xl font-bold text-blue-500 mb-4">Verification Email Sent!</h2>
+                        <h2 className="text-2xl font-bold text-red-500 mb-4">Verification Email Sent!</h2>
                         <p className="mb-4">
                             We've sent a verification email to <strong>{Email}</strong>.
                             Please check your inbox and click the verification link to activate your account.
@@ -61,51 +61,52 @@ const Register = () => {
                     </div>
                 </div>
             ) : (
-                <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col justify-center items-center">
-                    <div className="p-12 rounded-lg border-2 border-gray-00 bg-gray-00 my-3">
-                        <h1 className="text-2xl font-bold text-center text-blue-500 py-3">Register</h1>
+                <form onSubmit={(e) => handleSubmit(e)} className=" text-white flex flex-col justify-center items-center">
+                    <div className="p-12 rounded-lg border-2 border-gray-200 bg-gray-950 my-3">
+                        <h1 className="text-2xl font-bold text-center text-red-500 py-3">Register</h1>
                         <div className="flex flex-col gap-4">
                             <div className='py-1'>
-                                <label className='block py-1 text-blue-500 font-bold' htmlFor="name">Name</label>
+                                <label className='block  py-1 text-red-500 font-bold' htmlFor="name">Name</label>
                                 <input 
                                     required 
                                     value={name} 
                                     onChange={(e) => setName(e.target.value)} 
                                     type="text" 
                                     placeholder="Name" 
-                                    className="p-2 focus:ring-2 focus:ring-blue-500 border border-gray-00 rounded-md w-full" 
+                                    className="p-2 focus:ring-2 bg-gray-950 focus:ring-red-500 border border-gray-00 rounded-md w-full" 
                                 />
                             </div>
                             <div className='py-1'>
-                                <label className='block py-1 text-blue-500 font-bold' htmlFor="email">Email</label>
+                                <label className='block py-1 text-red-500 font-bold' htmlFor="email">Email</label>
                                 <input 
                                     required 
                                     value={Email} 
                                     onChange={(e) => setEmail(e.target.value)} 
                                     type="email" 
                                     placeholder="Email" 
-                                    className="p-2 focus:ring-2 focus:ring-blue-500 border border-gray-00 rounded-md w-full" 
+                                    className="p-2 focus:ring-2 bg-gray-950 focus:ring-red-500 border border-gray-00 rounded-md w-full" 
                                 />
                             </div>
                             <div className='py-1'>
-                                <label className='block py-1 text-blue-500 font-bold' htmlFor="password">Password</label>
+                                <label className='block py-1 text-red-500 font-bold' htmlFor="password">Password</label>
                                 <input 
                                     required 
                                     value={Password} 
                                     onChange={(e) => setPassword(e.target.value)} 
                                     type="password" 
                                     placeholder="Password" 
-                                    className="p-2 border border-gray-00 rounded-md w-full" 
+                                    className="p-2 border 
+bg-gray-950 border-gray-00 rounded-md w-full" 
                                 />
                             </div>
 
                             <button 
                                 disabled={loading} 
-                                className={`p-2 bg-blue-500 text-white rounded-md ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                className={`p-2 bg-red-500 text-white rounded-md ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                             >
                                 {loading ? 'Registering...' : 'Register'}
                             </button>
-                            <p className='text-center'>Already have an account? <a className='text-blue-500' href="/user/login">Login</a></p>
+                            <p className='text-center'>Already have an account? <a className='text-red-500' href="/user/login">Login</a></p>
                         </div>
                     </div>
                 </form>

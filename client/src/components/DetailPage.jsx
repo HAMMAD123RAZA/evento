@@ -13,11 +13,11 @@ export default function DetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [Like, setLike] = useState(0)
-  const user=localStorage.getItem('user')
-const userEmail=user.email;
+  const userData= JSON.parse( localStorage.getItem('user'))
+const userEmail=userData.user.email;
 console.log('user email from buy :',userEmail)
 
-  const handleBuy=async(data:any)=>{
+  const handleBuy=async(data)=>{
     if (!data || !data.title || !data.date || !data.venue || !data.description || !data.time) {
       alert("Invalid event details");
       return;
@@ -60,7 +60,7 @@ console.log('user email from buy :',userEmail)
         } else {
           setData(result)
         }
-      } catch (err:any) {
+      } catch (err) {
         setError(err.message)
       } finally {
         setLoading(false)
@@ -70,7 +70,7 @@ console.log('user email from buy :',userEmail)
     fetchData()
   }, [id])
 
-// const handleLike=async(data:any)=>{
+// const handleLike=async(data)=>{
 // try {
 //   const response=await fetch(`http://localhost:8080/admin/update/${data.id}`,{
 //     method:'PUT',
@@ -86,9 +86,9 @@ console.log('user email from buy :',userEmail)
 // }
 // }
 
-  const handleSave = (data:any) => {
+  const handleSave = (data) => {
     const savedCards=JSON.parse(localStorage.getItem('savedCards') || '[]');
-    if(!savedCards.find((items:any)=>items.id===data.id)){
+    if(!savedCards.find((items)=>items.id===data.id)){
       savedCards.push(data)
       localStorage.setItem("savedCards",JSON.stringify(savedCards))
       alert("Card Saved")
