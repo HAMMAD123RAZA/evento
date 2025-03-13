@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect ,useState} from 'react'
-import AdWrapper from '../admin/AdWrapper'
+import AdWrapper from './AdWrapper'
 
 const AdminMsg = () => {
       const [getMsg, setgetMsg] = useState([])

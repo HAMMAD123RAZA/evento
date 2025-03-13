@@ -17,7 +17,7 @@ import Events from './components/Events.tsx'
 import Upcoming from './components/UpComing'
 import Footer from './components/Footer'
 import UserProfile from './components/UserProfile'
-import AdminMsg from './components/AdminMsg'
+import AdminMsg from './admin/AdminMsg.jsx'
 
 const App = () => {
   return (
@@ -39,6 +39,7 @@ const App = () => {
     <Route path='/blog' element={<Upcoming />} /> 
     <Route path='/user' element={<UserProfile />} /> 
     <Route path='/admin/msg' element={<AdminMsg />} /> 
+    <Route path='/admin/create/blog' element={<CreateBlog />} /> 
 
 
   </Routes>
