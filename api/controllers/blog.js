@@ -37,3 +37,25 @@ export const getBlogById=async(req, res)=>{
         res.status(500).json({message:'internal server error'})
     }
 }
+
+export const deleteBlog=async(req,res)=>{
+    const {id}=req.params;
+    try {
+        const data=await sql `DELETE FROM blogs WHERE id=${id}`
+        res.status(200).json({message:'data deleted successfully', data})
+    } catch (error) {
+        res.status(500).json({message:'internal server error'})
+        console.log(error)
+    }
+}
+
+export const updateBlog=async(req,res)=>{
+    const {id,title, shortdesc, longdesc, date, imgurl}=req.body;
+    try {
+        const data=await sql`UPDATE blogs SET title=${title} , shortdesc=${shortdesc} ,longdesc=${longdesc} ,date=${date} , imgurl=${imgurl} WHERE id=${id} RETURNING *`
+        res.status(201).json({message:"data updated succesfully",data})
+    } catch (error) {
+        res.status(500).json({message:'internal server error'})
+        console.log(error)
+    }
+}

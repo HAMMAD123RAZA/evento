@@ -57,7 +57,7 @@ export default function EventList() {
     return (
         <>
             <AdWrapper>
-                <table className="w-full">
+                <table className="w-full text-white">
                     <thead>
                         <tr className="uppercase">
                             {head.map((item, index) => (

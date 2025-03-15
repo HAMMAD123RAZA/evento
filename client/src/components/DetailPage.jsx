@@ -5,6 +5,7 @@ import { FaShare } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import RElatedItem from './RElatedItem'
 import axios from 'axios'
+import PageWrapper from './PageWrapper'
 
 export default function DetailPage() {
   const { id } = useParams()
@@ -108,6 +109,7 @@ console.log('user email from buy :',userEmail)
 
   return (
     <div>
+      <PageWrapper>
       <div className="flex gap-8 px-4 items-center my-3">
         <div>
           <img
@@ -140,6 +142,7 @@ console.log('user email from buy :',userEmail)
     {/* Relatd item */}
     <h1 className='text-center font-bold text-2xl text-red-500' >Related Item</h1>
     <RElatedItem data={data} id={id} />
+    </PageWrapper>
     </div>
   )
 }

@@ -18,12 +18,13 @@ import Upcoming from './components/UpComing'
 import Footer from './components/Footer'
 import UserProfile from './components/UserProfile'
 import AdminMsg from './admin/AdminMsg.jsx'
+import CreateBlog from './admin/AdminBlogs.jsx'
+
 
 const App = () => {
   return (
     <>
 <Router>
-  <Navbar />
   <Routes>
     <Route path='/' element={<Home />} />
     <Route path='/card/:id' element={<DetailPage />} />
@@ -39,11 +40,10 @@ const App = () => {
     <Route path='/blog' element={<Upcoming />} /> 
     <Route path='/user' element={<UserProfile />} /> 
     <Route path='/admin/msg' element={<AdminMsg />} /> 
-    <Route path='/admin/create/blog' element={<CreateBlog />} /> 
+    <Route path='/admin/blog' element={<CreateBlog />} /> 
 
 
   </Routes>
-  <Footer/>
 </Router>
     </>
   )

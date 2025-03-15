@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import PageWrapper from './PageWrapper';
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('Profile');
@@ -58,6 +59,7 @@ console.log('token from profile:',token)
   return (
     <>
       {/* Tabs */}
+      <PageWrapper>
       <div className='text-white flex space-x-10 my-6 mx-3'>
         <button onClick={() => setActiveTab('Profile')}>Profile</button>
         <button onClick={() => setActiveTab('Message')}>Messaging</button>
@@ -113,7 +115,7 @@ console.log('token from profile:',token)
           </div>
         </div>
       )}
-
+</PageWrapper>
     </>
   );
 };

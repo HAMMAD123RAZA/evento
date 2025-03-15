@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import PageWrapper from './PageWrapper'
+
 
 function SavedItems() {
     const [savedCards, setsavedCards] = useState<any[]>([])
@@ -11,6 +13,7 @@ function SavedItems() {
     console.log('the saved items are :',savedCards)
     return (
     <>
+    <PageWrapper>
        <div className="p-4 text-gray-100">
       <h2 className="text-2xl font-bold mb-4">Saved Cards</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
@@ -33,6 +36,7 @@ function SavedItems() {
         ))}
       </div>
     </div>
+    </PageWrapper>
     </>
   )
 }
