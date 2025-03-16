@@ -8,8 +8,7 @@ const blogHero = () => {
         <div className="grid grid-cols-2 max-w-7xl mx-auto items-center">
 
             <div className='relative '>
-            <div className=" absolute top-0 -left-7  h-24 w-24 bg-red-500 rounded-full  "></div>
-
+            <div className=" absolute top-0 -left-7  h-24 w-24 bg-red-500 rounded-full "></div>
                 <h1 className='text-4xl w-1/2 font-bold text-white relative z-20' >Future Foucused Knowledge And Information</h1>
             </div>
             <div>

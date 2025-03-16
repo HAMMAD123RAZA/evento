@@ -18,12 +18,14 @@ const CreateBlog = () => {
   const [BlogData, setBlogData] = useState({ 
     title: '', 
     shortdesc: '', 
-    longdesc: '', // Initialize as empty string
+    longdesc: '', 
     date: '', 
-    imgurl: '' 
+    imgurl: '',
+    id: null // Add id field to track if we're editing an existing blog
   }); 
 
-  const [Tab, setTab] = useState('create')
+  const [Tab, setTab] = useState('create');
+  const [isEditing, setIsEditing] = useState(false);
 
   const buttons = [
     { label: 'Create', value: 'create' },
@@ -33,8 +35,17 @@ const CreateBlog = () => {
   const handleSubmit = async (e) => { 
     e.preventDefault(); 
     try { 
-      const api = await axios.post('http://localhost:8080/admin/blog', BlogData);  
-      console.log(api.data); 
+      if (isEditing) {
+        // If editing, send a PUT request instead
+        const api = await axios.put(`http://localhost:8080/update/blog/${BlogData.id}`, BlogData);
+        console.log('Blog updated:', api.data);
+        resetForm();
+      } else {
+        // If creating new, send a POST request
+        const api = await axios.post('http://localhost:8080/admin/blog', BlogData);  
+        console.log('Blog created:', api.data); 
+        resetForm();
+      }
     } catch (error) { 
       console.log(error); 
     } 
@@ -42,6 +53,33 @@ const CreateBlog = () => {
 
   const handleEditorChange = (e) => {
     setBlogData(prev => ({ ...prev, longdesc: e.target.value }));
+  };
+
+  const handleEdit = (blog) => {
+    // Set the form data to the selected blog's data
+    setBlogData({
+      title: blog.title,
+      shortdesc: blog.shortdesc,
+      longdesc: blog.longdesc,
+      date: blog.date,
+      imgurl: blog.imgurl,
+      id: blog.id
+    });
+    
+    setIsEditing(true);
+    setTab('create'); // Switch to the create tab which has the form
+  };
+
+  const resetForm = () => {
+    setBlogData({
+      title: '',
+      shortdesc: '',
+      longdesc: '',
+      date: '',
+      imgurl: '',
+      id: null
+    });
+    setIsEditing(false);
   };
  
   return ( 
@@ -51,7 +89,15 @@ const CreateBlog = () => {
         {buttons.map((item,id)=>{
           return (
             <div key={id}>
-              <button onClick={()=>setTab(item.value)} className='px-12 m-3 py-3 bg-gray-700 hover:bg-gray-900 text-white font-bold rounded-md' >
+              <button 
+                onClick={()=>{
+                  setTab(item.value);
+                  if (item.value === 'list') {
+                    resetForm(); // Reset form when switching to list view
+                  }
+                }} 
+                className='px-12 m-3 py-3 bg-gray-700 hover:bg-gray-900 text-white font-bold rounded-md'
+              >
                 {item.label}
               </button>
             </div>
@@ -61,6 +107,10 @@ const CreateBlog = () => {
 
 {Tab==='create' && (
         <form onSubmit={handleSubmit}> 
+        <h2 className="text-xl font-bold text-center pb-4">
+          {isEditing ? 'Edit Blog' : 'Create New Blog'}
+        </h2>
+        
         <EditorProvider className="bg-gray-700"> 
           <Editor 
             value={BlogData.longdesc} 
@@ -121,18 +171,31 @@ const CreateBlog = () => {
           /> 
         </div> 
 
-        <button className="bg-red-500 py-2 px-8 rounded-md my-3 mx-auto hover:bg-red-700 text-white font-bold"> 
-          Create 
-        </button> 
+        <div className="flex gap-4">
+          <button 
+            type="submit"
+            className="bg-red-500 py-2 px-8 rounded-md my-3 hover:bg-red-700 text-white font-bold"
+          > 
+            {isEditing ? 'Update' : 'Create'} 
+          </button>
+
+          {isEditing && (
+            <button 
+              type="button"
+              onClick={resetForm}
+              className="bg-gray-500 py-2 px-8 rounded-md my-3 hover:bg-gray-700 text-white font-bold"
+            > 
+              Cancel
+            </button>
+          )}
+        </div>
       </form> 
 ) }
 
 {Tab==='list' && (
- <BlogList/>
+ <BlogList onEdit={handleEdit} />
 )}
-
-
-      </AdWrapper> 
+    </AdWrapper> 
     </> 
   ); 
 }; 

@@ -1,35 +1,35 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { data } from 'react-router'
 
 const heads=[
   { 
     label:'Title',
     value:'title'
-},
-{
+  },
+  {
     label:'Description',
     value:'shortdesc'
-},
-{
+  },
+  {
     label:'Image',
     value:'imgurl'
-},
-{
+  },
+  {
     label:'Long Desc',
     value:'longdesc'
-},
-{
+  },
+  {
     label:'Date',
     value:'date'
-},{
-  label:'Actions',
-  value:'Actions'
-},
+  },
+  {
+    label:'Actions',
+    value:'Actions'
+  },
 ]
 
 
-export default function BlogList() {
+export default function BlogList({ onEdit }) {
     const [Data, setData] = useState([])
 
     const fetchData=async()=>{
@@ -54,11 +54,12 @@ export default function BlogList() {
       }
     }
 
-    const editBlog=(id)=>{}
-
+    const editBlog=(blog)=>{
+      onEdit(blog); // Pass the entire blog object to parent component
+    }
 
     useEffect(()=>{
-fetchData()
+      fetchData()
     },[])
 
   return (
@@ -84,9 +85,8 @@ fetchData()
         </td>
         <td className='px-3'>{item.date}</td>
         <td className='px-3 flex gap-3'>
-        <button onClick={()=>deleteBlog(item.id)}  className='bg-red-500 px-3 py-3 rounded-lg hover:bg-red-600 text-white font-bold' >  Delete</button>
-        <button onClick={()=>editBlog(item.id)} className='bg-gray-500 px-4 py3 rounded-lg hover:bg-gray-600 text-white font-bold' >  Edit</button>
-
+        <button onClick={()=>deleteBlog(item.id)} className='bg-red-500 px-3 py-3 rounded-lg hover:bg-red-600 text-white font-bold' >Delete</button>
+        <button onClick={()=>editBlog(item)} className='bg-gray-500 px-4 py-3 rounded-lg hover:bg-gray-600 text-white font-bold' >Edit</button>
         </td>
       </tr>
     ))}

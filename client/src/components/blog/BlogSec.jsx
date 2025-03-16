@@ -1,68 +1,40 @@
-
-
-
-import React from 'react';
-
-const cardData = [
-  {
-    id: 1,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkxaQMX4NW8V5JvJ1hV1laDEmbgbPNvNEUA&s",
-    heading: "High Performance. High Style",
-    description: "Get the discount OF 20%",
-    tag: 'very soon'
-  },
-  {
-    id: 2,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkxaQMX4NW8V5JvJ1hV1laDEmbgbPNvNEUA&s", 
-    heading: "High Performance. High Style",
-    description: "Get the discount OF 20%",
-    tag: 'very soon'
-  }, 
-  {
-    id: 3,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkxaQMX4NW8V5JvJ1hV1laDEmbgbPNvNEUA&s",
-    heading: "High Performance. High Style",
-    description: "Get the discount OF 20%",
-    tag: 'very soon'
-  },
-  {
-    id: 4,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdkxaQMX4NW8V5JvJ1hV1laDEmbgbPNvNEUA&s", 
-    heading: "High Performance. High Style",
-    description: "Get the discount OF 20%",
-    tag: 'very soon'
-  }
-];
+import React, { useState } from 'react';
+import axios from 'axios'
+import { useEffect } from 'react';
 
 const BlogSec = () => {
+  const [Data, setData] = useState([])
+  const fetchBlogs=async()=>{
+
+    try {
+      const api=await axios.get('http://localhost:8080/getAll/blogs')
+      setData(api.data.blog)
+      console.log(api.data.blog)
+      // console.log(api.data)
+    } catch (error) {
+      console.log('err in fetching blogs in client:',error)
+    }
+  }
+  useEffect(()=>{
+    fetchBlogs()
+  },[])
+  
+
   return (
     <>
       <section className="text-white flex flex-col md:flex-row justify-around items-start gap-8 p-4">
-        {/* left side */}
-        <div className="md:w-2/5">
-          <img src="7-1.jpeg" alt="" className="max-w-xl h-full object-cover" />
-          <p className="text-white text-2xl w-[96%] font-bold mt-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
-          </p>
+    {Data.map((item, index) => (
+      <div key={index} className="w-full md:w-1/3 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+        <img className="w-full h-48 object-cover" src={item.imgurl} alt={item.title} />
+        <div className="p-4">
+          <h2 className="text-xl font-bold mb-2">{item.title}</h2>
+          <p className="text-gray-400 text-sm mb-4">{item.date}</p>
+          <p className="text-gray-300">{item.shortdesc}</p>
         </div>
+      </div>
+    ))}
         
-        {/* right side with 2x2 card grid */}
-        <div className="md:w-2/5">
-          <div className="grid grid-cols-2 gap-4">
-            {cardData.map((item) => (
-              <div key={item.id} className="mb-4">
-                <img 
-                  src={item.imageUrl} 
-                  alt="" 
-                  className="w-full object-cover h-32" 
-                />
-                <p className="text-white text-lg font-bold mt-2">{item.heading}</p>
-                <p className="text-white text-sm font-bold">{item.description}</p>
-                <p className="text-white text-sm font-bold">{item.tag}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </section>
     </>
   );
