@@ -22,20 +22,19 @@ const BlogSec = () => {
 
   return (
     <>
-      <section className="text-white flex flex-col md:flex-row justify-around items-start gap-8 p-4">
-    {Data.map((item, index) => (
-      <div key={index} className="w-full md:w-1/3 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-        <img className="w-full h-48 object-cover" src={item.imgurl} alt={item.title} />
-        <div className="p-4">
-          <h2 className="text-xl font-bold mb-2">{item.title}</h2>
-          <p className="text-gray-400 text-sm mb-4">{item.date}</p>
-          <p className="text-gray-300">{item.shortdesc}</p>
-        </div>
+<section className='grid grid-cols-1 lg:px-3 gap-8  lg:grid-cols-4 ' >
+  {Data.map((item,id)=>{
+    return (
+      <div key={id} className='w-full bg-gray-950 text-white ' >
+        <img src={item.imgurl} alt="" />
+        <p className='text-sm' >{item.title.substring(0,20)}</p>
+        <p>{item.shortdesc.substring(0,60)}</p>
+        <p className='text-xs '>Author:~Hammad Raza</p>
       </div>
-    ))}
-        
+    )
+  })}
 
-      </section>
+</section>
     </>
   );
 };
