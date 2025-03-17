@@ -21,10 +21,10 @@ const CreateBlog = () => {
     longdesc: '', 
     date: '', 
     imgurl: '',
-    id: null // Add id field to track if we're editing an existing blog
+    id: null 
   }); 
 
-  const [Tab, setTab] = useState('create');
+  const [Tab, setTab] = useState('list');
   const [isEditing, setIsEditing] = useState(false);
 
   const buttons = [
@@ -36,12 +36,10 @@ const CreateBlog = () => {
     e.preventDefault(); 
     try { 
       if (isEditing) {
-        // If editing, send a PUT request instead
         const api = await axios.put(`http://localhost:8080/update/blog/${BlogData.id}`, BlogData);
         console.log('Blog updated:', api.data);
         resetForm();
       } else {
-        // If creating new, send a POST request
         const api = await axios.post('http://localhost:8080/admin/blog', BlogData);  
         console.log('Blog created:', api.data); 
         resetForm();
@@ -56,7 +54,6 @@ const CreateBlog = () => {
   };
 
   const handleEdit = (blog) => {
-    // Set the form data to the selected blog's data
     setBlogData({
       title: blog.title,
       shortdesc: blog.shortdesc,
@@ -67,7 +64,7 @@ const CreateBlog = () => {
     });
     
     setIsEditing(true);
-    setTab('create'); // Switch to the create tab which has the form
+    setTab('create');
   };
 
   const resetForm = () => {
@@ -93,7 +90,7 @@ const CreateBlog = () => {
                 onClick={()=>{
                   setTab(item.value);
                   if (item.value === 'list') {
-                    resetForm(); // Reset form when switching to list view
+                    resetForm(); 
                   }
                 }} 
                 className='px-12 m-3 py-3 bg-gray-700 hover:bg-gray-900 text-white font-bold rounded-md'

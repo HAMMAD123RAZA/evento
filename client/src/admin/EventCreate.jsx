@@ -53,8 +53,8 @@ const EventCreate = () => {
   };
 
   return (
-    <AdWrapper>
-      <section className='p-6 bg-white w-full rounded-lg h-screen shadow-md'>
+    // <AdWrapper>
+      <section className='p-6 overflow-auto bg-gray-500 w-full rounded-lg h-screen shadow-md'>
         <h1 className='text-3xl font-bold'>{data.id ? 'Edit Event' : 'Create Event'}</h1>
         <form onSubmit={handleSubmit}>
           <div>
@@ -66,7 +66,7 @@ const EventCreate = () => {
               type="text"
               name="title"
               placeholder='Title'
-              className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
+              className='py-4 bg-gray-400 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
           <div>
@@ -78,7 +78,7 @@ const EventCreate = () => {
               type="text"
               name="venue"
               placeholder='Venue'
-              className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
+              className='py-4 bg-gray-400 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
           <div>
@@ -90,7 +90,7 @@ const EventCreate = () => {
               type="date"
               name="date"
               placeholder='Date'
-              className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
+              className='py-4 bg-gray-400 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
           <div>
@@ -102,7 +102,7 @@ const EventCreate = () => {
               type="time"
               name="time"
               placeholder='Time'
-              className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
+              className='py-4 bg-gray-400 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
           <div>
@@ -114,7 +114,7 @@ const EventCreate = () => {
               type="text"
               name="description"
               placeholder='Description'
-              className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
+              className='py-4 bg-gray-400 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
           <div>
@@ -126,7 +126,7 @@ const EventCreate = () => {
               type="text"
               name="imgurl"
               placeholder='Image URL'
-              className='py-4 w-full my-3 border-2 border-gray-200 rounded-md'
+              className='py-4 bg-gray-400 w-full my-3 border-2 border-gray-200 rounded-md'
             />
           </div>
           <button
@@ -137,7 +137,6 @@ const EventCreate = () => {
           </button>
         </form>
       </section>
-    </AdWrapper>
   );
 };
 

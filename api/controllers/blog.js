@@ -30,8 +30,8 @@ export const getBlog=async(req, res)=>{
 export const getBlogById=async(req, res)=>{
     const {id}=req.params;
     try {
-        const api=await sql `SELECT * FROM blogs WHERE id=${id}`
-        res.status(200).json({message:'data fetced successfully', api})
+        const blog=await sql `SELECT * FROM blogs WHERE id=${id}`
+        res.status(200).json({message:'data fetced successfully', blog})
     } catch (error) {
         console.log(error)
         res.status(500).json({message:'internal server error'})

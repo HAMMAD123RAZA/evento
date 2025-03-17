@@ -19,7 +19,8 @@ import Footer from './components/Footer'
 import UserProfile from './components/UserProfile'
 import AdminMsg from './admin/AdminMsg.jsx'
 import CreateBlog from './admin/AdminBlogs.jsx'
-
+import DetailBlog from './components/blog/DetailBlog.jsx'
+import EventsAdmin from './admin/EventsAdmin.jsx'
 
 const App = () => {
   return (
@@ -41,8 +42,9 @@ const App = () => {
     <Route path='/user' element={<UserProfile />} /> 
     <Route path='/admin/msg' element={<AdminMsg />} /> 
     <Route path='/admin/blog' element={<CreateBlog />} /> 
-
-
+    <Route path='/blog/:id' element={<DetailBlog/>} /> 
+    <Route path='/admin/event' element={<EventsAdmin/>} /> 
+    
   </Routes>
 </Router>
     </>

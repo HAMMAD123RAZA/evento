@@ -56,7 +56,6 @@ export default function EventList() {
 
     return (
         <>
-            <AdWrapper>
                 <table className="w-full text-white">
                     <thead>
                         <tr className="uppercase">
@@ -93,7 +92,6 @@ export default function EventList() {
                         ))}
                     </tbody>
                 </table>
-            </AdWrapper>
         </>
     );
 }

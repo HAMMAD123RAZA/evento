@@ -11,14 +11,6 @@ const heads=[
     value:'shortdesc'
   },
   {
-    label:'Image',
-    value:'imgurl'
-  },
-  {
-    label:'Long Desc',
-    value:'longdesc'
-  },
-  {
     label:'Date',
     value:'date'
   },
@@ -64,7 +56,7 @@ export default function BlogList({ onEdit }) {
 
   return (
     <>
-   <table className='w-full text-white'>
+   <table className='w-full overflow-hidden text-white'>
   <thead >
     <tr className='uppercase'>
       {heads.map((item, id) => (
@@ -79,12 +71,11 @@ export default function BlogList({ onEdit }) {
       <tr className='py-2'  key={id}>
         <td className='px-3'>{item.title}</td>
         <td className='px-3'>{item.shortdesc.substring(0,20)}</td>
-        <td className='px-3'>{item.imgurl}</td>
-        <td className='px-3'>
+        {/* <td className='px-3'>
           {item.longdesc ? item.longdesc.substring(0, 40) + (item.longdesc.length > 40 ? '...' : '') : ''}
-        </td>
+        </td> */}
         <td className='px-3'>{item.date}</td>
-        <td className='px-3 flex gap-3'>
+        <td className='px-3 flex my-2 gap-3'>
         <button onClick={()=>deleteBlog(item.id)} className='bg-red-500 px-3 py-3 rounded-lg hover:bg-red-600 text-white font-bold' >Delete</button>
         <button onClick={()=>editBlog(item)} className='bg-gray-500 px-4 py-3 rounded-lg hover:bg-gray-600 text-white font-bold' >Edit</button>
         </td>
