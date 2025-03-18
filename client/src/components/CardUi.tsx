@@ -1,52 +1,39 @@
 import React from 'react';
-import { AiFillLike } from 'react-icons/ai';
-import { FaShare } from 'react-icons/fa';
-import { BsSave2 } from 'react-icons/bs';
-import { IoMdShareAlt } from "react-icons/io";
-
 import { Link } from 'react-router-dom';
-// import { addToSaved } from '../rtk/SavedCardsSlice'; // Import the action
+import {motion} from 'framer-motion'
 
-interface CardProps {
-  card: {
-    id: number;
-    title: string;
-    Venue: string;
-    description: string;
-    imgurl: string;
-    date: string;
-    time: string;
-  };
-  id: number;
-}
-
-export default function CardUi({ card, id }: CardProps) {
+const CardUi = ({ card, id }) => {
+  const { date, title, imgurl, time, description, venue } = card;
 
   return (
-    <div className="max-w-xs bg-gray-950  border-4 border-white rounded-lg overflow-hidden shadow-lg text-white bg-rgb(55, 65, 81)  hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1  ">
-      <Link to={`/card/${id}`}>
-        <img
-          className="w-full h-48 object-cover rounded-t-lg"
-          src={card?.imgurl}
-          alt="Card Image"
-        />
-      </Link>
+    <Link to={`/card/${id}`} >
+    <motion.div 
+    initial={{ opacity: 0, y:20 }}
+    animate={{ opacity: 3, y: 12   }} 
+    transition={{ duration: 0.5 }}
 
+        whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.2)' }} // Scale up and add shadow on hover
+        className="max-w-xs rounded overflow-hidden shadow-4xl bg-gray-400 m-4 border-2 border-gray-400"
+    >
+      <img className="w-full h-48 object-cover" src={imgurl} alt={title} />
       <div className="px-6 py-4">
-        <div className="flex justify-between items-center mb-4">
-          <div className="font-bold text-xl text-white">{card?.title}</div>
-          <div className="text-sm text-white">{card?.date}</div>
-        </div>
-        <p className="text-white text-base mb-4">{card?.description}</p>
-        <div className="flex justify-between items-center ">
-          <div className="text-sm text-white">{card?.Venue}</div>
-          <div>
-          <IoMdShareAlt className="text-white hover:text-white cursor-pointer"  />
-          </div>
-        </div>
-        <div className="text-sm text-white">{card?.time}</div>
-
+        <div className="font-bold text-xl mb-2">{title}</div>
+        <p className="text-gray-700 text-base">{description}</p>
       </div>
-    </div>
+      <div className="px-6 pt-4 pb-2">
+        <span className="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          {date}
+        </span>
+        <span className="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          {time}
+        </span>
+        <span className="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          {venue}
+        </span>
+      </div>
+    </motion.div>
+    </Link>
   );
-}
+};
+
+export default CardUi;

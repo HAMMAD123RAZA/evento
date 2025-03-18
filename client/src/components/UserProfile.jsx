@@ -61,8 +61,8 @@ console.log('token from profile:',token)
       {/* Tabs */}
       <PageWrapper>
       <div className='text-white flex space-x-10 my-6 mx-3'>
-        <button onClick={() => setActiveTab('Profile')}>Profile</button>
-        <button onClick={() => setActiveTab('Message')}>Messaging</button>
+        <button className={` font-bold ${activeTab==='Profile'?'text-red-500':' text-red-400'}`}  onClick={() => setActiveTab('Profile')}>Profile</button>
+        <button className={`font-bold ${activeTab==='Message'?'text-red-500':' text-red-400'}`}  onClick={() => setActiveTab('Message')}>Messaging</button>
       </div>
 
       {activeTab === 'Profile' && (
