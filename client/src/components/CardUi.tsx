@@ -18,7 +18,7 @@ const CardUi = ({ card, id }) => {
       <img className="w-full h-48 object-cover " src={imgurl} alt={title} />
       <div className="px-6 py-4">
         <div className="font-bold text-xl text-white mb-2">{title}</div>
-        <p className="text-gray-200 text-base">{description}</p>
+        <p className="text-gray-200 text-base">{description.substring(0,134)}...</p>
       </div>
       <div className="px-6 pt-4 pb-2">
         <span className="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">

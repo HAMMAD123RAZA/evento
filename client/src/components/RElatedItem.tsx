@@ -22,15 +22,15 @@ export default function RElatedItem({ data, id }: any) {
   }, [])
 
   const filteredData = relatedData.filter((item: any) => item.id !==Number(id))
-
+const slicedData=filteredData.slice(0,5)
   return (
     <>
     {Loading?(
       <LoadingScreen/>
     ):(
-    <div className="flex flex-wrap gap-6 justify-center mt-5">
-      {filteredData.length > 0 ? (
-        filteredData.map((item: any) => <CardUi key={item.id} card={item} id={item.id} />)
+    <div className="grid px-6 md:px-4 grid-cols-1 md:grid-cols-3 my-3 gap-4">
+      {slicedData.length > 0 ? (
+        slicedData.map((item: any) => <CardUi key={item.id} card={item} id={item.id} />)
       ) : (
         <p className="text-center text-gray-500">No related items found</p>
       )}

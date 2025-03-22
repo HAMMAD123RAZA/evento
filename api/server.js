@@ -12,10 +12,6 @@ import { sendEmailVerification, verifyEmail } from './controllers/Send_Email_Ver
 import { getMessages, sendMessage, verifyToken } from './controllers/message.js';
 import { createBlog, deleteBlog, getBlog, getBlogById, updateBlog } from './controllers/blog.js';
 
-// pass=wsqs mwzw sacu liih
-
-// sql='postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require'
-
 const app = express();
 app.use(cors());
 app.use(express.json()); 

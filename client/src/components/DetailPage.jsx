@@ -99,18 +99,17 @@ export default function DetailPage() {
   return (
     <div>
       <PageWrapper>
-        <div className="flex gap-8 px-4 items-center my-3">
-          <div>
+        <div className="flex flex-col md:flex-row  gap-8 px-4 md:px-14 items-center my-3">
+          <div className='w-full md:w-auto' >
             <img
-              className="w-full h-40 object-cover rounded"
-              src={data.imgurl || 'https://via.placeholder.com/300'}
+              className="w-full md:w-80 h-48  md:h-80 object-cover rounded"
+              src={data.imgurl}
               alt={data.title}
-              style={{ width: '21rem', height: '24rem' }}
             />
           </div>
 
           <div>
-            <h1 className="text-2xl text-gray-200 font-bold mt-4">{data.title}</h1>
+            <h1 className="text-2xl text-gray-200 font-bold ">{data.title}</h1>
             <p className="text-gray-100 max-w-xl">{data.description}</p>
             <div className="flex items-center gap-9 mt-4">
               <p className="text-gray-100">{data.date || 'N/A'}</p>
@@ -128,15 +127,17 @@ export default function DetailPage() {
               </motion.div>
 
             </div>
-            <button onClick={() => handleBuy(data)} className="bg-red-500 text-white px-4 py-2 rounded-md mt-4">
+            <button onClick={() => handleBuy(data)} className=" w-full  bg-red-500 text-white px-4 py-2 rounded-md mt-4">
               Buy Ticket
             </button>
           </div>
         </div>
 
         {/* Related item */}
-        <h1 className="text-center font-bold text-2xl text-red-500">Related Item</h1>
+      <div className="py-5">
+        <h1 className=" pl-9 md:pl-12  py-3 font-bold text-2xl md:text-4xl text-red-500">Related Events</h1>
         <RElatedItem data={data} id={id} />
+        </div>
       </PageWrapper>
     </div>
   )

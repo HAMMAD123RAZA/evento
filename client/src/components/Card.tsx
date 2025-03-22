@@ -66,13 +66,15 @@ const Card = () => {
     getData()
   },[])
 
+  const cardSlice=data.slice(0,9)
+
   return (
 <>
 {Loading?(
   <LoadingScreen/>
 ):(
-<div className="grid grid-cols-1 md:grid-cols-3 my-10 gap-4">
-{data.map((card,id)=>{
+<div className="grid px-6 md:px-4 grid-cols-1 md:grid-cols-3 my-10 gap-4">
+{cardSlice.map((card,id)=>{
   return (
     <>
     <CardUi card={card} key={id} id={card.id} />
