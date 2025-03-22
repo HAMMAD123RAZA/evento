@@ -3,12 +3,6 @@ import { Link } from 'react-router-dom'; // Corrected import for Link
 
 const menuItems = [
   {
-    name: "Profile",
-    active: false,
-    link: "/profile",
-    icons: 'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg'
-  },
-  {
     name: "Dashboard",
     active: false,
     link: "/admin",
@@ -37,9 +31,9 @@ const menuItems = [
 const AdWrapper = ({ children }) => {
   return (
     <div className="flex min-h-screen">
-      <div className="flex flex-col bg-gray-500 w-64 p-2">
+      <div className="flex flex-col bg-gray-900 w-64 p-2">
         {menuItems.map((item, id) => (
-          <div key={id} className='flex my-3 items-center gap-3 hover:bg-gray-100 transition-all duration-300 p-2 rounded'>
+          <div key={id} className='flex my-3 text-white items-center gap-3 hover:text-gray-600 transition-all duration-300 p-2 rounded'>
             <img src={item.icons} className='w-8 h-8 object-cover rounded-full' alt={item.name} />
             <Link to={item.link} className="text-lg font-medium">
               {item.name}

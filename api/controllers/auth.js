@@ -2,7 +2,10 @@ import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
+import dotenv from 'dotenv'
+
+dotenv.config();
+const sql = neon(process.env.sql);
 
 export const Register = async (req, res) => {
     const { name, email, password } = req.body;
@@ -100,3 +103,16 @@ export const Login = async (req, res) => {
         });
     }
 };
+
+export const getUsers=async(req,res)=>{
+    try {
+        const data=await sql`SELECT * FROM users`
+        res.status(200).json({
+            success:true,
+            message:"retrieved  users succesfully " ,
+            data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 
 interface ApiResponse {
@@ -12,6 +13,7 @@ const Login:React.FC = () => {
     const [Email, setEmail] = useState<string>('')
     const [Password, setPassword] = useState<string>('')
     const [Data, setData] = useState<ApiResponse | null>(null)
+    const navigate=useNavigate()
     const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         try {
@@ -28,7 +30,7 @@ const Login:React.FC = () => {
             localStorage.setItem('user', JSON.stringify(api.data))
             setEmail('')
             setPassword('')
-
+            navigate('/')
         } catch (error:any) {
             console.log('err in login',error);
             alert(error.api.data.message)

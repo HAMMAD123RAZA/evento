@@ -1,26 +1,29 @@
+// user: '01hammadraza@gmail.com', 
+// pass:'wsqs mwzw sacu liih'
+
+
+
 import { neon } from '@neondatabase/serverless';
-import nodemailer from 'nodemailer';
-import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 
-const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
+import dotenv from 'dotenv'
 
-// Create email transporter
+dotenv.config();
+const sql = neon(process.env.sql);
+
+// Configure your email provider
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  service: 'gmail', // Replace with your email service
   auth: {
-    user: '01hammadraza@gmail.com', 
-    pass:'wsqs mwzw sacu liih'
+    user: '01hammadraza@gmail.com', // Replace with your email
+    pass: 'wsqs mwzw sacu liih' // Replace with your app password
   }
 });
 
-// Function to generate verification token
-const generateVerificationToken = () => {
-  return crypto.randomBytes(32).toString('hex');
-};
-
-// Send verification email function
-export const sendEmailVerify = async (req, res) => {
+// Send verification email
+export const sendEmailVerification = async (req, res) => {
   const { email } = req.body;
   
   try {
@@ -32,42 +35,35 @@ export const sendEmailVerify = async (req, res) => {
     
     const user = users[0];
     
-    // Generate verification token
-    const verificationToken = generateVerificationToken();
-    const tokenExpiry = new Date();
-    tokenExpiry.setHours(tokenExpiry.getHours() + 24); // Token valid for 24 hours
+    // Generate verification token (random string)
+    const verificationToken = crypto.randomBytes(32).toString('hex');
     
-    // Store token in database
+    // Set token expiry (24 hours from now)
+    const tokenExpiry = new Date();
+    tokenExpiry.setHours(tokenExpiry.getHours() + 24);
+    
+    // Save token and expiry in database
     await sql`
       UPDATE users 
       SET verification_token = ${verificationToken}, 
-          token_expiry = ${tokenExpiry},
-          is_verified = false
+          token_expiry = ${tokenExpiry} 
       WHERE id = ${user.id}
     `;
     
     // Create verification URL
-    // const verificationUrl = `http://localhost:8080/verify-email?token=${verificationToken}`;//backend url route
-    const verificationUrl = `http://localhost:5173/verify-email?token=${verificationToken}`;//my frontend route 
-
+    const verificationUrl = `http://localhost:5173/verify-email?token=${verificationToken}`;
+    
     // Email content
-
     const mailOptions = {
       from: '01hammadraza@gmail.com',
       to: email,
       subject: 'Verify Your Email Address',
       html: `
-        <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; color: #333;">
-          <h1 style="color: #4a86e8; text-align: center;">Email Verification</h1>
-          <p>Hello ${user.name},</p>
-          <p>Thank you for registering with our service. Please verify your email address by clicking the button below:</p>
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${verificationUrl}" style="background-color: #4a86e8; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold;">Verify Email</a>
-          </div>
-          <p>This link will expire in 24 hours.</p>
-          <p>If you did not create this account, please ignore this email.</p>
-          <p>Best regards,<br>Your Application Team</p>
-        </div>
+        <h1>Email Verification</h1>
+        <p>Hi ${user.name},</p>
+        <p>Thanks for registering! Please click the link below to verify your email address:</p>
+        <a href="${verificationUrl}">Verify Email</a>
+        <p>This link will expire in 24 hours.</p>
       `
     };
     
@@ -76,7 +72,7 @@ export const sendEmailVerify = async (req, res) => {
     
     res.status(200).json({ 
       success: true, 
-      message: 'Verification email sent successfully' 
+      message: 'Verification email sent successfully. Please check your inbox.'
     });
     
   } catch (error) {
@@ -89,12 +85,19 @@ export const sendEmailVerify = async (req, res) => {
   }
 };
 
-// Verify email controller
+// Verify email with token
 export const verifyEmail = async (req, res) => {
   const { token } = req.query;
   
+  if (!token) {
+    return res.status(400).json({ 
+      success: false, 
+      message: 'Verification token is required'
+    });
+  }
+  
   try {
-    // Find user with the token
+    // Check if the token exists and is not expired
     const users = await sql`
       SELECT * FROM users 
       WHERE verification_token = ${token} 
@@ -104,24 +107,31 @@ export const verifyEmail = async (req, res) => {
     if (users.length === 0) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Invalid or expired verification token' 
+        message: 'Invalid or expired verification token'
       });
     }
     
     const user = users[0];
     
-    // Update user as verified
+    // Check if already verified
+    if (user.is_verified) {
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Email already verified. You can now log in.'
+      });
+    }
+    
+    // Only update is_verified to true, keep the token and expiry
     await sql`
       UPDATE users 
-      SET is_verified = true, 
-          verification_token = NULL, 
-          token_expiry = NULL 
+      SET is_verified = true
       WHERE id = ${user.id}
     `;
     
+    // Respond with success
     res.status(200).json({ 
       success: true, 
-      message: 'Email verified successfully' 
+      message: 'Email verified successfully. You can now log in.'
     });
     
   } catch (error) {
@@ -133,49 +143,3 @@ export const verifyEmail = async (req, res) => {
     });
   }
 };
-
-// export const verifyEmail = async (req, res) => {
-//   const { token } = req.query;
-
-//   try {
-//     console.log('Token from request:', token); // Log the token
-    
-//     const users = await sql`
-//       SELECT * FROM users 
-//       WHERE verification_token = ${token} 
-//       AND token_expiry > NOW()
-//     `;
-    
-//     if (users.length === 0) {
-//       console.log('Invalid or expired token'); // Log if token is invalid or expired
-//       return res.status(400).json({ 
-//         success: false, 
-//         message: 'Invalid or expired verification token' 
-//       });
-//     }
-    
-//     const user = users[0];
-//     console.log('User found:', user); // Log the user data
-    
-//     await sql`
-//       UPDATE users 
-//       SET is_verified = true, 
-//           verification_token = NULL, 
-//           token_expiry = NULL 
-//       WHERE id = ${user.id}
-//     `;
-    
-//     res.status(200).json({ 
-//       success: true, 
-//       message: 'Email verified successfully , You can now cut this page and get back to the website ' 
-//     });
-    
-//   } catch (error) {
-//     console.error('Error verifying email:', error);
-//     res.status(500).json({ 
-//       success: false, 
-//       message: 'Error verifying email', 
-//       error: error.message 
-//     });
-//   }
-// };

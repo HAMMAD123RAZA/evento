@@ -13,12 +13,12 @@ const CardUi = ({ card, id }) => {
     transition={{ duration: 0.5 }}
 
         whileHover={{ scale: 1.05, boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.2)' }} // Scale up and add shadow on hover
-        className="max-w-xs rounded overflow-hidden shadow-4xl bg-gray-400 m-4 border-2 border-gray-400"
+        className="max-w-xs rounded overflow-hidden shadow-4xl bg-gray-950 m-4 border-2 border-gray-400"
     >
-      <img className="w-full h-48 object-cover" src={imgurl} alt={title} />
+      <img className="w-full h-48 object-cover " src={imgurl} alt={title} />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{title}</div>
-        <p className="text-gray-700 text-base">{description}</p>
+        <div className="font-bold text-xl text-white mb-2">{title}</div>
+        <p className="text-gray-200 text-base">{description}</p>
       </div>
       <div className="px-6 pt-4 pb-2">
         <span className="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">

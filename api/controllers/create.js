@@ -1,6 +1,8 @@
 import { neon } from '@neondatabase/serverless';
+import dotenv from 'dotenv'
 
-const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
+dotenv.config();
+const sql = neon(process.env.sql);
 
  export const createData=async(req,res)=>{
     const {title,description , venue, date,time,imgurl}=req.body;

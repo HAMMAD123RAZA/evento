@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import RElatedItem from './RElatedItem'
 import axios from 'axios'
 import PageWrapper from './PageWrapper'
+import {motion} from 'framer-motion'
 
 export default function DetailPage() {
   const { id } = useParams()
@@ -109,7 +110,7 @@ export default function DetailPage() {
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold mt-4">{data.title}</h1>
+            <h1 className="text-2xl text-gray-200 font-bold mt-4">{data.title}</h1>
             <p className="text-gray-100 max-w-xl">{data.description}</p>
             <div className="flex items-center gap-9 mt-4">
               <p className="text-gray-100">{data.date || 'N/A'}</p>
@@ -117,8 +118,15 @@ export default function DetailPage() {
               <p className="mt-2 text-gray-100 font">{data.venue || 'Unknown'}</p>
             </div>
             <div className="flex py-3 items-center gap-4">
+              <motion.div whileHover={{ scale: 0.9 ,y:10 }} whileTap={{ scale: 0.8 }} >
               <FaShare size={24} color="red" onClick={() => handleShare(data)} className="cursor-pointer" />
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 0.9 ,y:10 }} whileTap={{ scale: 0.8 }} >
+
               <BsSave2 onClick={() => handleSave(data)} size={24} color="red" className="cursor-pointer" />
+              </motion.div>
+
             </div>
             <button onClick={() => handleBuy(data)} className="bg-red-500 text-white px-4 py-2 rounded-md mt-4">
               Buy Ticket

@@ -1,7 +1,10 @@
 import  jwt  from "jsonwebtoken";
 import { neon } from '@neondatabase/serverless';
 
-const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
+import dotenv from 'dotenv'
+
+dotenv.config();
+const sql = neon(process.env.sql);
 
 
 export const verifyToken=(req,res,next)=>{

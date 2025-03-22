@@ -1,80 +1,96 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSearchParams, Link } from 'react-router-dom';
 
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-  
-  const [verificationStatus, setVerificationStatus] = useState<'verifying' | 'success' | 'error'>('verifying');
-  const [message, setMessage] = useState<string>('Verifying your email...');
-  
+  const navigate = useNavigate();
+  const [status, setStatus] = useState('verifying');
+  const [message, setMessage] = useState('Verifying your email...');
+
   useEffect(() => {
-    if (!token) {
-      setVerificationStatus('error');
-      setMessage('Invalid verification link. No token provided.');
-      return;
-    }
-    
-    const verifyEmail = async () => {
+    const verifyToken = async () => {
+      const token = searchParams.get('token');
+      
+      if (!token) {
+        setStatus('error');
+        setMessage('Invalid verification link.');
+        return;
+      }
+
       try {
-        const response = await axios.get(`http://localhost:8080/api/verify-email?token=${token}`);
-        console.log('Backend response:', response.data); // Log the backend response
+        const response = await axios.get(`http://localhost:8080/verify-email?token=${token}`);
         
         if (response.data.success) {
-          setVerificationStatus('success');
-          setMessage('Your email has been successfully verified!');
+          setStatus('success');
+          setMessage(response.data.message || 'Email verified successfully! You can now log in.');
+          
+          // Update local storage if user data exists
+          const userData = localStorage.getItem('user');
+          if (userData) {
+            try {
+              const parsedUser = JSON.parse(userData);
+              parsedUser.isVerified = true;
+              localStorage.setItem('user', JSON.stringify(parsedUser));
+            } catch (e) {
+              console.error('Error updating local storage:', e);
+            }
+          }
+          
+          setTimeout(() => {
+            navigate('/user/login');
+          }, 3000);
         } else {
-          setVerificationStatus('error');
-          setMessage(response.data.message || 'Verification failed. Please try again.');
+          setStatus('error');
+          setMessage(response.data.message || 'Verification failed.');
         }
-      } catch (error: any) {
-        console.error('Error verifying email:', error); // Log the error
-        setVerificationStatus('error');
-        setMessage(error.response?.data?.message || 'Verification failed. The link may be expired or invalid.');
+      } catch (error) {
+        setStatus('error');
+        setMessage(
+          error.response?.data?.message || 
+          'Verification failed. Please try again or contact support.'
+        );
       }
     };
-    
-    verifyEmail();
-  }, [token]);
-  
+
+    verifyToken();
+  }, [searchParams, navigate]);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
-      <div className="p-12 rounded-lg border-2 border-gray-00 bg-gray-00 my-3 text-center max-w-md">
-        {verificationStatus === 'verifying' && (
-          <>
-            <h2 className="text-2xl font-bold text-blue-500 mb-4">Email Verification</h2>
-            <p className="mb-4">{message}</p>
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
-            </div>
-          </>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-2xl font-bold mb-4 text-center">Email Verification</h1>
+        
+        {status === 'verifying' && (
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p>{message}</p>
+          </div>
         )}
         
-        {verificationStatus === 'success' && (
-          <>
-            <h2 className="text-2xl font-bold text-green-500 mb-4">Email Verified!</h2>
-            <p className="mb-4">{message}</p>
-            <Link 
-              to="/user/login" 
-              className="block w-full py-2 px-4 bg-blue-500 text-white text-center rounded-md hover:bg-blue-600 transition"
-            >
-              Log In Now
-            </Link>
-          </>
+        {status === 'success' && (
+          <div className="text-center text-green-600">
+            <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <p className="mt-2">{message}</p>
+            <p className="mt-4 text-sm text-gray-500">Redirecting to login page...</p>
+          </div>
         )}
         
-        {verificationStatus === 'error' && (
-          <>
-            <h2 className="text-2xl font-bold text-red-500 mb-4">Verification Failed</h2>
-            <p className="mb-4">{message}</p>
-            <Link 
-              to="/user/register" 
-              className="block w-full py-2 px-4 bg-blue-500 text-white text-center rounded-md hover:bg-blue-600 transition"
+        {status === 'error' && (
+          <div className="text-center text-red-600">
+            <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <p className="mt-2">{message}</p>
+            <button 
+              onClick={() => navigate('/login')}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
-              Back to Registration
-            </Link>
-          </>
+              Go to Login
+            </button>
+          </div>
         )}
       </div>
     </div>

@@ -16,34 +16,50 @@ const Register = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [verificationSent, setVerificationSent] = useState<boolean>(false)
     const [Data, setData] = useState<ApiResponse | null>(null)
-
+    const [Message, setMessage] = useState('')
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-    
+        
         try {
-            // Register the user
-            const registerResponse = await axios.post<ApiResponse>(
-                'http://localhost:8080/user/register',
-                { name, email: Email, password: Password }
+          // Register the user
+          const registerResponse = await axios.post<ApiResponse>(
+            'http://localhost:8080/user/register',
+            { name, email: Email, password: Password }
+          );
+          
+          setData(registerResponse.data);
+          
+          if (registerResponse.data.success) {
+            // Send verification email
+            const verifyResponse = await axios.post(
+              'http://localhost:8080/send_email_verify', 
+              { email: Email }
             );
-    
-            setData(registerResponse.data);
             
-            if (registerResponse.data.success !== false) {
-                // Send verification email
-                await axios.post('http://localhost:8080/send_email_verify', { email: Email });
-                setVerificationSent(true);
+            if (verifyResponse.data.success) {
+              setVerificationSent(true);
+              // Store user data without sensitive information
+              const userData = {
+                id: registerResponse.data.newUser.id,
+                name: registerResponse.data.newUser.name,
+                email: registerResponse.data.newUser.email,
+                token: registerResponse.data.token,
+                isVerified: false
+              };
+              localStorage.setItem('user', JSON.stringify(userData));
+              
+              // Show verification prompt/message
+              setMessage('Registration successful! Please check your email to verify your account.');
             }
-            localStorage.setItem('user', registerResponse.data);
-         
+          }
         } catch (error: any) {
-            console.error('Error in register:', error);
-            alert(error.response?.data?.message || 'Registration failed. Please try again.');
+          console.error('Error in register:', error);
+          setMessage(error.response?.data?.message || 'Registration failed. Please try again.');
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
 
     return (
         <>

@@ -77,7 +77,7 @@ console.log('token from profile:',token)
 
       {activeTab === 'Message' && (
         <div className='m-3  '>
-          <h2 className='font-bold text-white text-2xl'>Send Message</h2>
+          <h2 className='font-bold py-2 text-white text-2xl'>Send Message To Us</h2>
           <form onSubmit={handleSubmitMsg} className='py-3  max-w-lg'>
             <textarea
               onChange={(e) => setMsg(e.target.value)}
@@ -94,7 +94,9 @@ console.log('token from profile:',token)
           </form>
 
           {/* Messages and replies */}
-          <div className='text-white my-3' >
+
+          
+          {/* <div className='text-white my-3' >
           <div className="max-w-lg rounded-md  ">
             {getMsg.map((item, index) => (
               <div key={index} className="bg-gray-800 p-6 mb-4 rounded-md">
@@ -104,15 +106,18 @@ console.log('token from profile:',token)
                 </div>
                 <p className='my-3' >{item.time}</p>
 
-                {/* {item.reply && (
+                {item.reply && (
                   <div className="mt-2 bg-gray-700 p-2 rounded-md">
                     <p className="text-white">{item.reply}</p>
                   </div>
-                )} */}
+                )}
               </div>
             ))}
           </div>
-          </div>
+          </div> */}
+
+
+          
         </div>
       )}
 </PageWrapper>

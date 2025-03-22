@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios, { toFormData } from 'axios'
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { easeIn, motion } from 'framer-motion';
 const BlogSec = () => {
   const [Data, setData] = useState([])
   const [CurrentPage, setCurrentPage] = useState(1)
@@ -44,14 +44,18 @@ const BlogSec = () => {
     pageNum.push(i)
   }
 
-
-
   return (
     <>
 <section className='grid grid-cols-1 lg:px-3 gap-8  lg:grid-cols-4 ' >
   {currentItems.map((item,id)=>{
     return (
-      <Link to={`/blog/${item.id}`} key={id} className='max-w-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gray-950 text-white ' >
+      <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: id * 0.1 }}
+      whileHover={{scale:0.9,y:10}}
+      >
+      <Link to={`/blog/${item.id}`} key={id} className='max-w-sm overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gray-950 text-white ' >
         <img src={item.imgurl} className='w-full h-48 object-cover' alt="" />
         <div className="p-4">
         <p className='text-sm mb-2' >{item.title.substring(0,20)}</p>
@@ -59,6 +63,8 @@ const BlogSec = () => {
         <p className='text-xs '>Author:~Hammad Raza</p>
         </div>
       </Link>
+      </motion.div>
+
     )
   })}
 </section>
@@ -72,9 +78,14 @@ const BlogSec = () => {
   {/* center buttons based on length */}
   {pageNum.map((number,id)=>{
     return(
+      <motion.div 
+      whileTap={{scale:0.8}}
+      whileHover={{scale:0.9,y:10}}
+       >
       <button onClick={()=>paginate(number)} key={number} className={` ${CurrentPage===number?'bg-red-500':'bg-gray-500'} rounded px-3 mx-2 py-2 text-white bg-gray-500`} >
         {number}
       </button>
+      </motion.div>
     )
   })}
 

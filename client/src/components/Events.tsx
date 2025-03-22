@@ -4,6 +4,8 @@ import CardUi from './CardUi'
 import { FaSearch } from "react-icons/fa";
 import LoadingScreen from './LoadingScreen';
 import PageWrapper from './PageWrapper';
+import {motion} from 'framer-motion'
+
 
 export default function Events() {
   const [data, setData] = useState([])
@@ -28,11 +30,13 @@ const filterData=data.filter((item)=>item.title.toLowerCase().includes(Search.to
   return (
     <>
     <PageWrapper>
+      <motion.div whileHover={{scale:0.9 , y:5}} >
     <div className='m-9 relative mx-auto max-w-xs ' >
-      <input type="text" placeholder='search' value={Search} onChange={(e)=>setSearch(e.target.value)} className='px-12 lg:px-18 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 ' />
+      <input type="text"  placeholder='search' value={Search} onChange={(e)=>setSearch(e.target.value)} className='px-12 bg-gray-400 lg:px-18 py-4 rounded-3xl focus:outline-none focus:ring-2 focus:ring-red-500 ' />
       <FaSearch className='absolute top-1/2 m-1  transform -translate-y-1/2 text-red-400' color='red' size={20} />
 
     </div>
+    </motion.div>
     {Loading?(
       <LoadingScreen/>
     ):(

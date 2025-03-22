@@ -6,9 +6,9 @@ import { getData, getSignleData } from './controllers/getdata.js';
 import { updateData } from './controllers/updateData.js';
 import nodemailer from 'nodemailer';
 import { deleteSingleData, deleteAllData } from './controllers/deleteData.js';
-import { Login, Register } from './controllers/auth.js';
+import { getUsers, Login, Register } from './controllers/auth.js';
 import { sendEmail } from './controllers/send-email.js';
-import { sendEmailVerify, verifyEmail } from './controllers/Send_Email_Verify.js';
+import { sendEmailVerification, verifyEmail } from './controllers/Send_Email_Verify.js';
 import { getMessages, sendMessage, verifyToken } from './controllers/message.js';
 import { createBlog, deleteBlog, getBlog, getBlogById, updateBlog } from './controllers/blog.js';
 
@@ -34,10 +34,17 @@ app.delete('/admin/delete/', deleteAllData);
 // Auth routes
 app.post('/user/register', Register);
 app.post('/user/login', Login);
+app.get('/admin/getUsers',getUsers)
 
 // Email verification routes
-app.post('/send_email_verify', sendEmailVerify);
-app.get('/api/verify-email', verifyEmail); 
+// app.post('/send_email_verify', sendEmailVerify);
+// app.get('/verify-email', verifyEmail); 
+
+app.post('/send_email_verify', sendEmailVerification);
+
+// Route to verify email
+app.get('/verify-email', verifyEmail);
+
 
 app.post('/send_email_Request', sendEmail);
 app.post('/send_msg',verifyToken,sendMessage)

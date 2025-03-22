@@ -1,9 +1,10 @@
 import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
 
-const sql = neon('postgresql://neondb_owner:npg_bZvVMjNr87DE@ep-purple-hall-a8y9hegq-pooler.eastus2.azure.neon.tech/neondb?sslmode=require');
-
+dotenv.config();
+const sql = neon(process.env.sql);
 
 export const createBlog=async(req,res)=>{
     const {title, shortdesc, longdesc, date, imgurl}=req.body;

@@ -4,21 +4,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 const sliderData = [
   {
     img: 'https://cdn.pixabay.com/photo/2020/05/11/09/03/conductor-5157153_1280.jpg',
-    title: 'Event 1',
+    title: 'Piano Music & Spiritual Awakening',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia enim incidunt rem similique quos dolorum obcaecati, commodi sunt perspiciatis, ab maiores nihil, quibusdam odit labore eligendi rerum natus nesciunt ut.',
+      'Immerse yourself in the soothing sounds of piano music and embark on a journey of spiritual discovery. This event combines the beauty of classical melodies with moments of reflection and mindfulness, leaving you feeling refreshed and inspired.',
   },
   {
     img: 'https://media.istockphoto.com/id/499517325/photo/a-man-speaking-at-a-business-conference.jpg?s=1024x1024&w=is&k=20&c=iCUzJvudLPi2HnpAAzIVVqgQVAlnI9TigkEcXcH2NY4=',
-    title: 'Event 2',
+    title: 'Career & School Guidance Workshop',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia enim incidunt rem similique quos dolorum obcaecati, commodi sunt perspiciatis, ab maiores nihil, quibusdam odit labore eligendi rerum natus nesciunt ut.',
+      "Navigate your future with confidence! Our career and school guidance workshop offers expert advice, personalized strategies, and valuable resources to help you make informed decisions about your education and career path. Discover your potential and unlock your success.",
   },
   {
     img: 'https://cdn.pixabay.com/photo/2023/04/03/12/59/crowd-7896788_1280.jpg',
-    title: 'Event 3',
+    title: 'Dance & Music Fusion Festival',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia enim incidunt rem similique quos dolorum obcaecati, commodi sunt perspiciatis, ab maiores nihil, quibusdam odit labore eligendi rerum natus nesciunt ut.',
+      'Experience the electrifying energy of our Dance & Music Fusion Festival! A vibrant celebration of movement and sound, featuring captivating performances, interactive workshops, and unforgettable moments. Get ready to groove to the rhythm and let your spirit soar!',
   },
 ];
 
