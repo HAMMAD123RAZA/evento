@@ -31,7 +31,7 @@ const filterData=data.filter((item)=>item.title.toLowerCase().includes(Search.to
     <>
     <PageWrapper>
       <motion.div whileHover={{scale:0.9 , y:5}} >
-    <div className='m-9 relative mx-auto max-w-xs ' >
+    <div className='my-5  relative mx-auto max-w-xs ' >
       <input type="text"  placeholder='search' value={Search} onChange={(e)=>setSearch(e.target.value)} className='px-12 bg-gray-400 lg:px-18 py-4 rounded-3xl focus:outline-none focus:ring-2 focus:ring-red-500 ' />
       <FaSearch className='absolute top-1/2 m-1  transform -translate-y-1/2 text-red-400' color='red' size={20} />
 
@@ -40,7 +40,7 @@ const filterData=data.filter((item)=>item.title.toLowerCase().includes(Search.to
     {Loading?(
       <LoadingScreen/>
     ):(
-      <div className="grid md:grid-cols-3 py-3 px-12 lg:px-3 grid-cols-1 ">
+      <div className="grid md:grid-cols-3 py-3 px-6 lg:px-3 grid-cols-1 ">
       {filterData.map((data,id)=>{
         return (
           <div key={id}  className='my-3'>
@@ -52,7 +52,6 @@ const filterData=data.filter((item)=>item.title.toLowerCase().includes(Search.to
     )}
     </PageWrapper>
  
-
     </>
   )
 }

@@ -22,7 +22,6 @@ const Register = () => {
         setLoading(true);
         
         try {
-          // Register the user
           const registerResponse = await axios.post<ApiResponse>(
             'http://localhost:8080/user/register',
             { name, email: Email, password: Password }

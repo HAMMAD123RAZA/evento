@@ -1,6 +1,3 @@
-// user: '01hammadraza@gmail.com', 
-// pass:'wsqs mwzw sacu liih'
-
 
 
 import { neon } from '@neondatabase/serverless';
@@ -13,12 +10,11 @@ import dotenv from 'dotenv'
 dotenv.config();
 const sql = neon(process.env.sql);
 
-// Configure your email provider
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // Replace with your email service
+  service: 'gmail',
   auth: {
-    user: '01hammadraza@gmail.com', // Replace with your email
-    pass: 'wsqs mwzw sacu liih' // Replace with your app password
+    user: '01hammadraza@gmail.com', 
+    pass: 'wsqs mwzw sacu liih'
   }
 });
 
@@ -38,7 +34,6 @@ export const sendEmailVerification = async (req, res) => {
     // Generate verification token (random string)
     const verificationToken = crypto.randomBytes(32).toString('hex');
     
-    // Set token expiry (24 hours from now)
     const tokenExpiry = new Date();
     tokenExpiry.setHours(tokenExpiry.getHours() + 24);
     
