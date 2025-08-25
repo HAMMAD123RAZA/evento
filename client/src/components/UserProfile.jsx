@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PageWrapper from './PageWrapper';
+import { redirect, useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('Profile');
@@ -10,6 +11,7 @@ const UserProfile = () => {
   const user = userData?.user;
   const token = userData?.token; // Retrieve the token from localStorage
 console.log('token from profile:',token)
+const navigate=useNavigate()
 
   const handleSubmitMsg = async (e) => {
     e.preventDefault();
@@ -55,6 +57,12 @@ console.log('token from profile:',token)
   useEffect(()=>{
     FetchingMsg()
   },[])
+
+  useEffect(()=>{
+    if(!user || !userData ){
+      return navigate('/user/login')
+    }
+  })
 
   return (
     <>

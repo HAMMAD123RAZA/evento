@@ -54,9 +54,9 @@ const Footer = () => {
     <>
       <div className="bg-gray-950 max-w-7xl mx-auto h-full py-10 text-gray-400">
         {/* logo */}
-        <h2 className="text-2xl font-bold text-center my-2 ">Evento</h2>
+        <h2 className="text-2xl font-bold text-center my-2 ">DEVELOPED BY HAMMAD RAZA</h2>
 
-        <div className='flex justify-center gap-3 items-center py-8 cursor-pointer'>
+        <div className='flex justify-center gap-5 items-center py-8 cursor-pointer'>
           <motion.div
             whileHover={{ scale: 0.9, y: 20 }}
             initial={{ x: 0, rotate: 0 }}
