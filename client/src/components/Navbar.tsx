@@ -106,8 +106,8 @@ const Navbar = () => {
               ))}
               <motion.li 
                 className="mb-2"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 0.9 }}
+                whileTap={{ scale: 0.6 }}
               >
                 <Link to="/user/register" className="block text-white hover:text-red-400" onClick={toggleMobileMenu}>
                   Register

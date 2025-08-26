@@ -15,7 +15,9 @@ export default function Hero() {
         <p className='mt-4 text'>
   Unlock Your Potential: Explore, Learn, and Thrive with Our Vibrant Community of Music, Dance, Career Development, Study Guidance, Counseling, and More. Discover the latest events that meets your wants!
 </p>
-    <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.9 }} className='font-bold mx-1 w-48 py-3 px-5 my-3 text-white bg-red-500 hover:bg-white hover:text-red-500 ounded-lg border-2 border-red-500' onClick={()=>navigate('/events')}>Discover IT</motion.div >
+    <motion.div
+     whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+      className='font-bold cursor-pointer mx-1 w-48 py-3 px-5 my-3 text-white bg-red-500 hover:bg-white hover:text-red-500 ounded-lg border-2 border-red-500' onClick={()=>navigate('/events')}>Discover IT</motion.div >
         </div>
         <img width={490}  src="https://cdn.pixabay.com/photo/2016/11/23/15/48/audience-1853662_1280.jpg" alt="" />
       </div>

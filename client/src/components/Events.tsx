@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CardUi from './CardUi'
 import { FaSearch } from "react-icons/fa";
 import LoadingScreen from './LoadingScreen';
-import PageWrapper from './PageWrapper';
+import PageWrapper from '../components/PageWrapper';
 import {motion} from 'framer-motion'
 
 
@@ -30,13 +30,24 @@ const filterData=data.filter((item)=>item.title.toLowerCase().includes(Search.to
   return (
     <>
     <PageWrapper>
-      <motion.div whileHover={{scale:0.9 , y:5}} >
-    <div className='my-5  relative mx-auto max-w-xs ' >
-      <input type="text"  placeholder='search' value={Search} onChange={(e)=>setSearch(e.target.value)} className='px-12 bg-gray-400 lg:px-18 py-4 rounded-3xl focus:outline-none focus:ring-2 focus:ring-red-500 ' />
-      <FaSearch className='absolute top-1/2 m-1  transform -translate-y-1/2 text-red-400' color='red' size={20} />
-
-    </div>
-    </motion.div>
+     <motion.div whileHover={{ scale: 0.95 }} className="my-5">
+  <div className="relative mx-auto max-w-md">
+    <input
+      type="text"
+      placeholder="Search..."
+      value={Search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full pl-12 pr-4 py-3 bg-gray-800 text-white rounded-full 
+                 focus:outline-none focus:ring-2 focus:ring-red-500 
+                 border border-gray-700 placeholder-gray-400"
+    />
+    <FaSearch 
+      className="absolute left-4 top-1/2 transform -translate-y-1/2" 
+      color="#f87171" 
+      size={20} 
+    />
+  </div>
+</motion.div>
     {Loading?(
       <LoadingScreen/>
     ):(

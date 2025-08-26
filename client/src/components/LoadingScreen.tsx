@@ -3,9 +3,9 @@ import React from 'react'
 export default function LoadingScreen() {
   return (
     <>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 px-6 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md w-64 animate-pulse">
+          <div key={index} className="bg-white rounded-lg shadow-md w-80 animate-pulse">
             <div className="w-full h-48 object-cover rounded-t-lg bg-gray-300"></div>
             <div className="p-3">
               <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
