@@ -1,0 +1,27 @@
+# Ignore dependencies and logs
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignore local envs
+.env
+.env.local
+
+# Ignore build artifacts from local machine
+dist
+build
+
+# Ignore test and coverage files
+__tests__
+coverage
+
+# Ignore OS/editor junk
+.DS_Store
+*.swp
+*.swo
+*.bak
+
+# Ignore Docker files not needed in context
+Dockerfile
+docker-compose.yml
+

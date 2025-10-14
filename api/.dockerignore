@@ -1,0 +1,22 @@
+# Ignore node_modules and logs
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignore local env files
+.env
+.env.local
+
+# Ignore test files
+__tests__
+coverage
+
+# Ignore OS/editor junk
+.DS_Store
+*.swp
+*.swo
+*.bak
+
+# Ignore Docker stuff from parent
+Dockerfile
+docker-compose.yml

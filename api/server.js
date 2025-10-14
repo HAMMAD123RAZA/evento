@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { neon } from '@neondatabase/serverless';
 import { createData } from './controllers/create.js';
-import { getData, getSignleData } from './controllers/getdata.js';
+import { getData, getSignleData } from './controllers/getData.js';
 import { updateData } from './controllers/updateData.js';
 import nodemailer from 'nodemailer';
 import { deleteSingleData, deleteAllData } from './controllers/deleteData.js';
@@ -55,3 +55,5 @@ app.get('/getAll/blogs', getBlog)
 app.get('/get/blog/:id', getBlogById)
 app.put('/update/blog/:id',updateBlog)
 app.delete('/delete/blog/:id',deleteBlog)
+
+
