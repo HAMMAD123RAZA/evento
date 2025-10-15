@@ -48,14 +48,3 @@ export const getMessages=async(req, res)=>{
     }
 }
 
-
-// export const getSingleMessage=async(req, res)=>{
-//     const {id}=req.params;
-//     try {
-//         const result=await sql`SELECT * FROM message WHERE id=${id}`
-//         res.status(200).json({message:"message fetched "}, result)
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).json({message:"error in message fetching"})
-//     }
-// }
