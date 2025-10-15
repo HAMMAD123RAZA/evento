@@ -42,7 +42,7 @@ app.get('/admin/getUsers',getUsers)
 
 app.post('/send_email_verify', sendEmailVerification);
 
-// Route to verify email
+//  verify email
 app.get('/verify-email', verifyEmail);
 
 
