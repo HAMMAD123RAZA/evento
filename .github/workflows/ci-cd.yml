@@ -104,7 +104,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/myapp-api:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/myapp-api:${{ github.sha }}
 
-      # --- Build and Push Client Image ---
+      # --- Build and Push Client Image -
       - name: Build & Push Client Image
         uses: docker/build-push-action@v6
         with:
