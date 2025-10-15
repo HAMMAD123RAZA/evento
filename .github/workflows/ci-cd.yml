@@ -101,8 +101,8 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp-api:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp-api:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/evento-api:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/evento-api:${{ github.sha }}
 
       # --- Build and Push Client Image -
       - name: Build & Push Client Image
@@ -112,8 +112,8 @@ jobs:
           file: ./client/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp-client:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp-client:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/evento-client:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/evento-client:${{ github.sha }}
 
       - name: Verify built images
         run: docker images
