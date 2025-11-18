@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdWrapper from './AdWrapper';
 import axios from 'axios';
-import { FaTrash } from 'react-icons/fa'; // Add the trash icon for delete functionality
 import { useNavigate } from 'react-router-dom';
 
 export default function EventList() {
