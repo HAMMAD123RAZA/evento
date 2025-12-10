@@ -36,7 +36,7 @@ const AdminHome = () => {
   if (loading) {
     return (
       <AdWrapper>
-        <div className="p-6 text-white">Loading...</div>
+        <div className="p-6 text-white">Loading....</div>
       </AdWrapper>
     )
   }
@@ -72,3 +72,4 @@ const AdminHome = () => {
 };
 
 export default AdminHome;
+
